@@ -13,7 +13,7 @@ export default function NewsCard({ image, title, text }: NewsCardProps) {
       {/* Image */}
       <div className="mb-4">
         <Image
-          src={image}
+          src={image || "/placeholder.svg"}
           alt={title}
           width={400}
           height={300}
