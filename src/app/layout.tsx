@@ -25,7 +25,7 @@ export default function RootLayout({
         {/* Add any meta tags, title, or links here */}
       </head>
       <body className={`${interFont.variable} antialiased`}>
-        <header className="sticky top-0">
+        <header className="sticky top-0 z-50 bg-white shadow-md">
           {/* Add header content here */}
           <NavigationMenu />
         </header>
