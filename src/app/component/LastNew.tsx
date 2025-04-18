@@ -14,7 +14,7 @@ export default function LastNew() {
           className="bg-white rounded-lg overflow-hidden shadow-md w-[300px]"
         >
           <Image
-            src="/NewImg.jpg"
+            src="/nho.jpg"
             alt={`News ${n}`}
             width={400}
             height={250}
