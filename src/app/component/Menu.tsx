@@ -1,44 +1,44 @@
-"use client"
+"use client";
 
-import { useState, useRef, useEffect } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { ChevronDown, Menu, X } from "lucide-react"
+import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { ChevronDown, Menu, X } from "lucide-react";
 
 type MenuItem = {
-  label: string
-  href: string
-  subItems?: { label: string; href: string }[]
-}
+  label: string;
+  href: string;
+  subItems?: { label: string; href: string }[];
+};
 
 export default function NavigationMenu() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
-  const navRef = useRef<HTMLDivElement>(null)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const navRef = useRef<HTMLDivElement>(null);
 
   // Function to convert text to title case
   const toTitleCase = (str: string) => {
     return str.replace(/\w\S*/g, (txt) => {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-    })
-  }
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  };
 
   // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
-        setMobileMenuOpen(false)
+        setMobileMenuOpen(false);
       }
-    }
+    };
 
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [])
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Handle mobile dropdown toggles
   const toggleMobileDropdown = (label: string) => {
-    setActiveDropdown(activeDropdown === label ? null : label)
-  }
+    setActiveDropdown(activeDropdown === label ? null : label);
+  };
 
   const menuItems: MenuItem[] = [
     {
@@ -67,21 +67,36 @@ export default function NavigationMenu() {
         { label: "Photos", href: "/resource/photos" },
       ],
     },
-  ]
+  ];
 
   const whatWeDo = [
-    { label: "SPIRITUAL DEVELOPMENT", href: "/what-we-do/spiritual-development" },
-    { label: "UNIVERSITY SPONSORSHIP", href: "/what-we-do/university-sponsorship" },
-    { label: "SKILLS/VOCATIONAL TRAINING", href: "/what-we-do/vocational-training" },
+    {
+      label: "SPIRITUAL DEVELOPMENT",
+      href: "/what-we-do/spiritual-development",
+    },
+    {
+      label: "UNIVERSITY SPONSORSHIP",
+      href: "/what-we-do/university-sponsorship",
+    },
+    {
+      label: "SKILLS/VOCATIONAL TRAINING",
+      href: "/what-we-do/vocational-training",
+    },
     { label: "KID'S CAMP", href: "/what-we-do/kids-camp" },
-  ]
+  ];
 
   return (
     <nav className="w-full bg-white shadow-md z-50" ref={navRef}>
       <div className="container mx-auto flex flex-wrap items-center justify-between py-4 px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
-          <Image src="/favi.png" alt="Logo" width={60} height={60} className="h-14 w-auto" />
+          <Image
+            src="/favi.png"
+            alt="Logo"
+            width={60}
+            height={60}
+            className="h-14 w-auto"
+          />
         </Link>
 
         {/* Mobile Menu Toggle */}
@@ -97,17 +112,21 @@ export default function NavigationMenu() {
         {/* Desktop Menu */}
         <div className="hidden lg:flex lg:items-center lg:space-x-1">
           {/* What We Do Dropdown */}
-          <div className="relative group ">
-            <div className="flex items-center gap-1 px-16 py-4 text-black font-bold hover:text-green-600   cursor-pointer transition-colors duration-200">
-              <span>WHAT WE DO?</span>
-              <ChevronDown size={16} className="transform group-hover:rotate-180 transition-transform duration-200 " />
-            </div>
-            <div className="absolute left-0 mt-0 w-66 bg-green-600 text-white rounded-b-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-20">
+          <div className="relative group w-64">
+            <button className="w-full flex items-center justify-between px-6 py-4 text-black font-bold group-hover:bg-[#43A047] group-hover:text-white transition-all duration-200 rounded-t-md">
+              <span className="mx-auto">WHAT WE DO?</span>
+              <ChevronDown
+                size={16}
+                className="transition-transform duration-200 group-hover:rotate-180"
+              />
+            </button>
+
+            <div className="absolute left-0 mt-0 w-full bg-[#43A047] text-white rounded-b-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-20">
               {whatWeDo.map((item, index) => (
                 <Link
                   key={index}
                   href={item.href}
-                  className="block px-6 py-3 font-bold hover:bg-green-700 border-b border-white/20 transition-colors normal-case"
+                  className="block px-6 py-3 font-bold transition-all duration-200 text-center hover:underline hover:underline-offset-15 hover:font-extrabold"
                 >
                   {toTitleCase(item.label)}
                 </Link>
@@ -117,25 +136,29 @@ export default function NavigationMenu() {
 
           {/* Main Menu Items */}
           {menuItems.map((item, index) => (
-            <div key={index} className="relative group">
-              <div className="flex items-center gap-1 px-14 py-4 text-black font-bold hover:text-green-600 cursor-pointer transition-colors duration-200">
-                <span>{item.label}</span>
-                <ChevronDown size={16} className="transform group-hover:rotate-180 transition-transform duration-200" />
-              </div>
-              {item.subItems && (
-                <div className="absolute left-0 mt-0 w-64 bg-green-600 text-white rounded-b-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-20">
-                  {item.subItems.map((subItem, subIndex) => (
-                    <Link
-                      key={subIndex}
-                      href={subItem.href}
-                      className="block px-6 py-3 font-bold hover:bg-green-700 border-b border-white/20 transition-colors normal-case"
-                    >
-                      {toTitleCase(subItem.label)}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+           <div key={index} className="relative group w-64">
+           <div className="w-full flex items-center justify-between px-6 py-4 text-black font-bold group-hover:bg-[#43A047] group-hover:text-white transition-all duration-200 rounded-t-md">
+             <span className="mx-auto">{item.label}</span>
+             <ChevronDown
+               size={16}
+               className="transition-transform duration-200 group-hover:rotate-180"
+             />
+           </div>
+           {item.subItems && (
+             <div className="absolute left-0 mt-0 w-full bg-[#43A047] text-white rounded-b-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-20">
+               {item.subItems.map((subItem, subIndex) => (
+                 <Link
+                   key={subIndex}
+                   href={subItem.href}
+                   className="block px-6 py-3 font-bold transition-all duration-200 text-center hover:underline hover:underline-offset-15 hover:font-extrabold"
+                 >
+                   {toTitleCase(subItem.label)}
+                 </Link>
+               ))}
+             </div>
+           )}
+         </div>
+         
           ))}
         </div>
 
@@ -177,7 +200,9 @@ export default function NavigationMenu() {
             </button>
             <div
               className={`${
-                activeDropdown === "WHAT WE DO?" ? "max-h-96 opacity-100 visible" : "max-h-0 opacity-0 invisible"
+                activeDropdown === "WHAT WE DO?"
+                  ? "max-h-96 opacity-100 visible"
+                  : "max-h-0 opacity-0 invisible"
               } overflow-hidden transition-all duration-300 ease-in-out bg-green-600 text-white rounded-md mt-1`}
             >
               {whatWeDo.map((item, index) => (
@@ -210,7 +235,9 @@ export default function NavigationMenu() {
               {item.subItems && (
                 <div
                   className={`${
-                    activeDropdown === item.label ? "max-h-96 opacity-100 visible" : "max-h-0 opacity-0 invisible"
+                    activeDropdown === item.label
+                      ? "max-h-96 opacity-100 visible"
+                      : "max-h-0 opacity-0 invisible"
                   } overflow-hidden transition-all duration-300 ease-in-out bg-green-600 text-white rounded-md mt-1`}
                 >
                   {item.subItems.map((subItem, subIndex) => (
@@ -245,5 +272,5 @@ export default function NavigationMenu() {
         </div>
       </div>
     </nav>
-  )
+  );
 }
