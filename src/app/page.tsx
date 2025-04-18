@@ -5,7 +5,6 @@ import LastNew from "@/app/component/LastNew"
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
-      <NavigationMenu />
 
       {/* Hero Section
       <section className="relative">
@@ -159,8 +158,6 @@ export default function Home() {
       {/* Latest News Section */}
       
       < LastNew />
-    
-      < Footer />
     
     </div>
   )
