@@ -34,7 +34,7 @@ export default function NewsPage() {
     // Create a larger dataset by duplicating and modifying the base data
     const largeData: News[] = []
     for (let i = 0; i < 30; i++) {
-      baseData.forEach((item, index) => {
+      baseData.forEach((item) => {
         largeData.push({
           ...item,
           title: `${item.title} - Edition ${i + 1}`,
