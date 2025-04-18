@@ -1,6 +1,8 @@
+"use client"
+
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import NewsCard from "@/app/component/newcard"
+import NewsGrid from "@/app/component/newgrid"
 
 interface News {
   image: string
@@ -9,23 +11,41 @@ interface News {
 }
 
 export default function NewsPage() {
-  const newsData = [
-    {
-      image: "/nho.jpg",
-      title: "Farm Support for Sustainable Development",
-      text: "here are over 150 million orphaned children worldwide, separated from their families by death, abandonment, or displacement. These children are among the most vulnerable, facing exploitation,",
-    },
-    {
-      image:  "/nho.jpg",
-      title: "Agricultural Innovation",
-      text: "New farming techniques are helping communities build sustainable food systems while protecting natural resources and improving livelihoods.",
-    },
-    {
-      image:  "/nho.jpg",
-      title: "Rural Development Programs",
-      text: "Supporting rural communities through education, infrastructure, and economic opportunities to create lasting positive change.",
-    },
-  ]
+  // Generate a large dataset for demonstration
+  const generateLargeNewsData = () => {
+    const baseData = [
+      {
+        image: "/nho.jpg",
+        title: "Farm Support for Sustainable Development",
+        text: "here are over 150 million orphaned children worldwide, separated from their families by death, abandonment, or displacement. These children are among the most vulnerable, facing exploitation,",
+      },
+      {
+        image: "/nho.jpg",
+        title: "Agricultural Innovation",
+        text: "New farming techniques are helping communities build sustainable food systems while protecting natural resources and improving livelihoods.",
+      },
+      {
+        image: "/nho.jpg",
+        title: "Rural Development Programs",
+        text: "Supporting rural communities through education, infrastructure, and economic opportunities to create lasting positive change.",
+      },
+    ]
+
+    // Create a larger dataset by duplicating and modifying the base data
+    const largeData: News[] = []
+    for (let i = 0; i < 30; i++) {
+      baseData.forEach((item, index) => {
+        largeData.push({
+          ...item,
+          title: `${item.title} - Edition ${i + 1}`,
+        })
+      })
+    }
+
+    return largeData
+  }
+
+  const newsData = generateLargeNewsData()
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
@@ -55,7 +75,7 @@ export default function NewsPage() {
         {/* Image */}
         <div className="w-full md:w-1/2">
           <Image
-            src= "/nho.jpg"
+            src="/nho.jpg"
             alt="Children playing in water"
             width={600}
             height={400}
@@ -64,20 +84,10 @@ export default function NewsPage() {
         </div>
       </div>
 
-      {/* Single News Card Example */}
-      {/* <div className="max-w-md mx-auto mb-12">
-        <NewsCard
-          image="/farm-image.png"
-          title="Farm Support for Sustainable Development"
-          text="here are over 150 million orphaned children worldwide, separated from their families by death, abandonment, or displacement. These children are among the most vulnerable, facing exploitation,"
-        />
-      </div> */}
-
-      {/* News Grid Section */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-        {newsData.map((news, index) => (
-          <NewsCard key={index} image={news.image} title={news.title} text={news.text} />
-        ))}
+      {/* News Grid with Pagination */}
+      <div className="mt-12">
+        <h2 className="text-2xl font-bold text-green-500 mb-6">Latest News</h2>
+        <NewsGrid newsData={newsData} itemsPerPage={6} />
       </div>
     </div>
   )
