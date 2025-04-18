@@ -18,9 +18,9 @@ export default function About() {
         </div>
         <div className="md:w-1/2 flex flex-col justify-center">
           <h3 className="text-xl md:text-2xl font-medium italic mb-4">
-            "Learn to do right! Seek justice, encourage the oppressed. Defend the cause of the fatherless, plead the
-            case of the widow,"
-            <span className="text-green-600 block mt-1">-Isaiah 1:17</span>
+          `&quot;`Learn to do right! Seek justice, encourage the oppressed. Defend the cause of the fatherless, plead the
+            case of the widow,`&quot;`
+            <span className="text-green-600 block mt-1">-Isaiah 1:17</span> 
           </h3>
           <p className="text-gray-700">
             <span className="font-semibold text-green-600">New Hope for Orphan (NHO)</span> is a registered
