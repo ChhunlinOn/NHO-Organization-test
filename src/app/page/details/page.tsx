@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-export default function OrphanCare() {
+export default function NewDetail() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-16  " style={{ color: "#282828" }}>
      
