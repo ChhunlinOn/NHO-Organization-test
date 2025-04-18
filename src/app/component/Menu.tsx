@@ -77,7 +77,7 @@ export default function NavigationMenu() {
   ]
 
   return (
-    <nav className="w-full bg-white shadow-md sticky top-0 z-50" ref={navRef}>
+    <nav className="w-full bg-white shadow-md z-50" ref={navRef}>
       <div className="container mx-auto flex flex-wrap items-center justify-between py-4 px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
