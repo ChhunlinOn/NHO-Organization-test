@@ -46,7 +46,7 @@ export default function NavigationMenu() {
       href: "/about",
       subItems: [
         { label: "VISION & MISSION", href: "/about/vision-mission" },
-        { label: "FOUNDER MESSAGE", href: "/about/founder-message" },
+        { label: "FOUNDER MESSAGE", href: "/page/about/founderMessage" },
         { label: "HOUSE PARENT PROFILE", href: "/about/house-parent-profile" },
       ],
     },
@@ -62,7 +62,7 @@ export default function NavigationMenu() {
       label: "RESOURCE",
       href: "/resource",
       subItems: [
-        { label: "News", href: "/resource/news" },
+        { label: "News", href: "/page/new" },
         { label: "Reports", href: "/resource/reports" },
         { label: "Photos", href: "/resource/photos" },
       ],
@@ -171,7 +171,7 @@ export default function NavigationMenu() {
             SUPPORT
           </Link>
           <Link
-            href="/contact"
+            href="/page/contact"
             className="px-6 py-2 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition-colors"
           >
             CONTACT
