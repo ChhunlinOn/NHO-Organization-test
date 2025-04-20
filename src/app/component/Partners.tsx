@@ -3,7 +3,7 @@ import Image from "next/image"
 
 export default function PartnersSection() {
   return (
-    <section className="py-16 px-6 md:px-12 lg:px-24">
+    <section className="py-16 px-6 md:px-12 lg:px-24 bg-gray-50">
       <h2 className="text-3xl font-bold text-[#43A047] text-center mb-6">OUR PARTNERS</h2>
       <p className="text-center max-w-4xl mx-auto mb-12 text-black">
         Our organization is getting bigger. Therefore, we are unable to fund all the programs on our own. We have
