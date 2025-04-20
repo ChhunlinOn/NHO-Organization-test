@@ -80,7 +80,7 @@ export default function NavigationMenu() {
     },
     {
       label: "SKILLS/VOCATIONAL TRAINING",
-      href: "/what-we-do/vocational-training",
+      href: "/page/WhatWeDo/skill",
     },
     { label: "KID'S CAMP", href: "/what-we-do/kids-camp" },
   ];
