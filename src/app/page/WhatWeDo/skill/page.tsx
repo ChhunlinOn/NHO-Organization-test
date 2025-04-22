@@ -47,7 +47,7 @@ export default function SkillsVocationalTraining() {
 
         {/* Right side - Text content */}
         <div className="w-full lg:w-1/2 space-y-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#0A558C] leading-tight">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#43A047] leading-tight">
             Cooking Skill
           </h2>
 
