@@ -38,7 +38,7 @@ export default function ContactPage() {
         setIsSuccess(false); // Error: Set the error state
         setMessage("Form submission failed. Please try again.");
       }
-    } catch (error) {
+    } catch {
       setIsSuccess(false); // Error: Set the error state
       setMessage("An error occurred. Please try again.");
     }

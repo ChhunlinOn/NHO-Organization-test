@@ -114,60 +114,7 @@ export default function NewsGrid({ newsData, itemsPerPage = 6 }: NewsGridProps) 
     }
   }, [currentPage, totalPages, windowWidth])
 
-  // Demo function to show what happens with many pages
-  const renderPaginationDemo = () => {
-    // This is just for demonstration - not actually used in the component
-    const demoTotalPages = 100
-    const demoCurrentPage = 50
-
-    return (
-      <div className="mt-8 p-4 border border-dashed border-gray-300 rounded-md">
-        <h3 className="text-lg font-medium mb-2">Pagination with many pages (example: 100 pages)</h3>
-        <div className="flex flex-wrap justify-center items-center gap-2 mt-4">
-          <Button variant="outline" size="icon" className="border-green-500 text-green-500 h-9 w-9">
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-
-          <Button variant="outline" className="border-green-500 text-green-500 h-9 w-9 p-0">
-            1
-          </Button>
-
-          <span className="text-gray-500">...</span>
-
-          <Button variant="outline" className="border-green-500 text-green-500 h-9 w-9 p-0">
-            48
-          </Button>
-
-          <Button variant="outline" className="border-green-500 text-green-500 h-9 w-9 p-0">
-            49
-          </Button>
-
-          <Button variant="default" className="bg-green-500 hover:bg-green-600 h-9 w-9 p-0">
-            50
-          </Button>
-
-          <Button variant="outline" className="border-green-500 text-green-500 h-9 w-9 p-0">
-            51
-          </Button>
-
-          <Button variant="outline" className="border-green-500 text-green-500 h-9 w-9 p-0">
-            52
-          </Button>
-
-          <span className="text-gray-500">...</span>
-
-          <Button variant="outline" className="border-green-500 text-green-500 h-9 w-9 p-0">
-            100
-          </Button>
-
-          <Button variant="outline" size="icon" className="border-green-500 text-green-500 h-9 w-9">
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
-        <div className="text-center mt-4 text-sm text-gray-500">Page 50 of 100</div>
-      </div>
-    )
-  }
+  // Removed unused renderPaginationDemo function
 
   return (
     <div>

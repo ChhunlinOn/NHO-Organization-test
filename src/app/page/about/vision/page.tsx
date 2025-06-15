@@ -37,7 +37,7 @@ export default function Vision() {
         <p>
           As our vision expands, so do our responsibilities. Currently, we provide care for{" "}
           <span className="text-green-600 font-medium">over 500 children</span> across{" "}
-          <span className="text-green-600 font-medium">16 orphanages</span>, also known as children's homes. While many
+          <span className="text-green-600 font-medium">16 orphanages</span>, also known as children&apos;s homes. While many
           children are already under our care,{" "}
           <span className="text-green-600 font-medium">countless others still need support</span>, we invite you to{" "}
           <span className="text-green-600 font-medium">join us in prayer and action</span> to make a difference in their
@@ -58,7 +58,7 @@ export default function Vision() {
         <p>
           Our ministry is dedicated to{" "}
           <span className="text-green-600 font-medium">
-            improving children's living conditions, providing for their basic needs, and helping them realize their
+            improving children&apos;s living conditions, providing for their basic needs, and helping them realize their
             dreams
           </span>
           . Today, many of our <span className="text-green-600 font-medium">young adults, aged 18</span> and above, are

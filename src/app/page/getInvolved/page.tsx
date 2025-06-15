@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 export default function Home() {
@@ -100,9 +101,11 @@ export default function Home() {
                 showMore ? "h-[400px]" : "h-[300px]"
               } overflow-hidden rounded`}
             >
-              <img
+              <Image
                 src="/getinvoled.png"
                 alt="Happy kids"
+                width={800}
+                height={400}
                 className="w-full h-full object-cover transition-all duration-500 ease-in-out"
               />
             </div>
@@ -115,7 +118,7 @@ export default function Home() {
               }`}
             >
               <h2 className="text-green-700 font-bold text-2xl mb-8">
-                YOU'RE THE HOPE OF OTHERS
+                YOU&#39;RE THE HOPE OF OTHERS
               </h2>
 
               <p className="text-gray-700 mb-8">
