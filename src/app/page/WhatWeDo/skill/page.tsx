@@ -6,66 +6,67 @@ export default function SkillsVocationalTraining() {
   return (
     <section className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold text-center text-[#43A047] mb-8">
-        Skills/Vocational Training{" "}
+        Vocational Training for Independence
       </h1>
 
-      <div className="text-center mb-12 max-w-4xl mx-auto">
-        <p className="text-xl font-bold sm:text-lg text-start">
-          Enable young adults to complete vocational education and earn the
-          skills they need to obtain and maintain gainful employment and
-          independence. 
+      {/* Intro Paragraphs */}
+      <div className="text-center mb-12 max-w-4xl mx-auto space-y-4">
+        <p className="text-xl sm:text-lg text-start">
+          We believe every young person deserves the opportunity to thrive —
+          whether through academic or practical paths. Children in our care
+          complete their primary and secondary education through Cambodia&#39;s
+          public school system.
         </p>
-        <p className="text-xl sm:text-lg text-start mt-2">All kids will be educated in the public school system
-          that is provided by the government of Cambodia. While many students
-          choose to study at a university, others extend their education by
-          attending skills or vocational training. These young adults can learn
-          skills and trades such as hospitality management, cooking, and car
-          mechanics.</p>
+        <p className="text-xl sm:text-lg text-start">
+          After graduation, some students pursue university, while others are
+          empowered to continue their education through vocational or skills
+          training. These programs provide a pathway to employment, financial
+          independence, and a meaningful future.
+        </p>
       </div>
 
-      <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          {/* Left side - Circular image with background */}
-          <div className="relative w-full lg:w-1/2 flex-shrink-0">
-            <div className="aspect-square w-full max-w-[400px] mx-auto group">
-              <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl transition-transform duration-500 group-hover:scale-105">
-                {/* Glowing animated border */}
-                <div className="absolute inset-0 rounded-full z-0 bg-gradient-to-tr from-[#43A047] via-transparent to-[#A5D6A7] animate-spin-slow blur-lg opacity-50"></div>
-
-                {/* Glass background */}
-                <div className="absolute inset-0 rounded-full bg-white/10 backdrop-blur-md z-10 border-4 border-white/20 group-hover:border-[#43A047] transition" />
-
-                {/* Image */}
-                <Image
-                  src="/skill.jpg"
-                  alt="SEAPC internship program"
-                  fill
-                  className="object-cover z-20 relative rounded-full "
-                  priority
-                />
-              </div>
+      {/* Main Content with Image and Text */}
+      <div className="flex flex-col lg:flex-row items-center gap-12">
+        {/* Left - Image */}
+        <div className="relative w-full lg:w-1/2 flex-shrink-0">
+          <div className="aspect-square w-full max-w-[400px] mx-auto group">
+            <div className="relative w-full h-full overflow-hidden shadow-2xl transition-transform duration-500 group-hover:scale-105 rounded-2xl">
+              <div className="absolute inset-0 bg-white/10 backdrop-blur-md z-10 border-4 border-white/20 group-hover:border-[#43A047] transition" />
+              <Image
+                src="/skill.jpg"
+                alt="Vocational Training Program"
+                fill
+                className="object-cover z-20 relative"
+                priority
+              />
             </div>
           </div>
+        </div>
 
-          {/* Right side - Text content */}
-          <div className="w-full lg:w-1/2 space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#43A047] leading-tight">
-              Cooking Skill
-            </h2>
+        {/* Right - Text */}
+        <div className="w-full lg:w-1/2 space-y-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#43A047] leading-tight">
+            Practical Skills That Build Futures
+          </h2>
 
-            <p className="text-lg text-gray-700">
-              Internship in America: SEAPC has created an opportunity for
-              students who graduate from university and wish to serve in the
-              NGO. The internship lasts for 3 months.
-            </p>
+          <p className="text-lg text-gray-700">
+            Through partnerships with trusted institutions, our young adults
+            receive professional training in high-demand fields such as:
+          </p>
 
-            <p className="text-lg text-gray-700">
-              For three months they train in bible, leadership, finance,
-              business, English, and more about NGO operations. When they
-              complete the program, they will be immediately employed by SEAPC
-              to work in Cambodia to help orphanages or schools.
-            </p>
-          </div>
+          <ul className="list-disc list-inside text-lg text-gray-700 space-y-2 font-semibold">
+            <li>Hospitality management</li>
+            <li>Cooking and culinary arts</li>
+            <li>Car and motorcycle mechanics</li>
+            <li>Beauty and wellness services</li>
+            <li>Electrical and construction work</li>
+          </ul>
+
+          <p className="text-lg text-gray-700">
+            These programs equip students with the practical skills they need to
+            secure stable employment, live independently, and build lives of
+            dignity and purpose.
+          </p>
         </div>
       </div>
     </section>
