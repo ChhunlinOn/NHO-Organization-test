@@ -72,7 +72,7 @@ export default function NavigationMenu() {
   const whatWeDo = [
     {
       label: "SPIRITUAL DEVELOPMENT",
-      href: "/what-we-do/spiritual-development",
+      href: "/page/WhatWeDo/spiritualdevelopment ",
     },
     {
       label: "UNIVERSITY SPONSORSHIP",
