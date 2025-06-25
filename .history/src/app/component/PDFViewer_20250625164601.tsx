@@ -70,12 +70,12 @@ export default function PDFFlipViewer({ filePath }: PDFFlipViewerProps) {
   }, []);
 
   const handleZoomIn = () => {
-    setZoomScale((prev) => Math.min(prev + ZOOM_STEP, MAX_ZOOM));
-  };
+  setZoomScale((prev) => Math.min(prev + ZOOM_STEP, MAX_ZOOM));
+};
 
-  const handleZoomOut = () => {
-    setZoomScale((prev) => Math.max(prev - ZOOM_STEP, MIN_ZOOM));
-  };
+const handleZoomOut = () => {
+  setZoomScale((prev) => Math.max(prev - ZOOM_STEP, MIN_ZOOM));
+};
 
   return (
     <div className="flex flex-col items-center w-full p-4 bg-gradient-to-r from-slate-100 to-slate-200">
@@ -161,7 +161,7 @@ export default function PDFFlipViewer({ filePath }: PDFFlipViewerProps) {
               <div className="flex gap-2 items-center flex-wrap">
                 <button
                   onClick={handleZoomOut}
-                  disabled={zoomScale <= MIN_ZOOM}
+                  disabled={zoomScale <= 1}
                   title="Zoom Out"
                   className="p-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
@@ -169,9 +169,8 @@ export default function PDFFlipViewer({ filePath }: PDFFlipViewerProps) {
                 </button>
                 <button
                   onClick={handleZoomIn}
-                  disabled={zoomScale >= MAX_ZOOM}
                   title="Zoom In"
-                  className="p-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="p-2 bg-gray-200 rounded hover:bg-gray-300"
                 >
                   <ZoomIn className="w-5 h-5" />
                 </button>

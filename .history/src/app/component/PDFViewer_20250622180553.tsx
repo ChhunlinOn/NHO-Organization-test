@@ -18,10 +18,6 @@ interface PDFFlipViewerProps {
   filePath: string;
 }
 
-const MIN_ZOOM = 0.5;
-const MAX_ZOOM = 2.5;
-const ZOOM_STEP = 0.2;
-
 export default function PDFFlipViewer({ filePath }: PDFFlipViewerProps) {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,7 +25,7 @@ export default function PDFFlipViewer({ filePath }: PDFFlipViewerProps) {
   const [isError, setIsError] = useState(false);
   const [pageWidth, setPageWidth] = useState<number>(600);
   const [isZoomOpen, setIsZoomOpen] = useState(false);
-  const [zoomScale, setZoomScale] = useState(1); // scale for zoom modal
+  const [zoomScale, setZoomScale] = useState(0.5); // scale for zoom modal
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -70,11 +66,11 @@ export default function PDFFlipViewer({ filePath }: PDFFlipViewerProps) {
   }, []);
 
   const handleZoomIn = () => {
-    setZoomScale((prev) => Math.min(prev + ZOOM_STEP, MAX_ZOOM));
+    setZoomScale((prev) => Math.min(prev + 0.2, 3));
   };
 
   const handleZoomOut = () => {
-    setZoomScale((prev) => Math.max(prev - ZOOM_STEP, MIN_ZOOM));
+    setZoomScale((prev) => Math.max(prev - 0.2, 0.8));
   };
 
   return (
@@ -161,7 +157,7 @@ export default function PDFFlipViewer({ filePath }: PDFFlipViewerProps) {
               <div className="flex gap-2 items-center flex-wrap">
                 <button
                   onClick={handleZoomOut}
-                  disabled={zoomScale <= MIN_ZOOM}
+                  disabled={zoomScale <= 1}
                   title="Zoom Out"
                   className="p-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
@@ -169,9 +165,8 @@ export default function PDFFlipViewer({ filePath }: PDFFlipViewerProps) {
                 </button>
                 <button
                   onClick={handleZoomIn}
-                  disabled={zoomScale >= MAX_ZOOM}
                   title="Zoom In"
-                  className="p-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="p-2 bg-gray-200 rounded hover:bg-gray-300"
                 >
                   <ZoomIn className="w-5 h-5" />
                 </button>
