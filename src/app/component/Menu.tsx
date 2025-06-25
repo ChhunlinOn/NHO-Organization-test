@@ -50,14 +50,14 @@ export default function NavigationMenu() {
         { label: "HOUSE PARENT PROFILE", href: "/page/houseparent" },
       ],
     },
-    {
-      label: "GET INVOLVED",
-      href: "/get-involved",
-      subItems: [
-        { label: "SPONSOR", href: "/get-involved/sponsor" },
-        { label: "VOLUNTEER", href: "/get-involved/volunteer" },
-      ],
-    },
+   {
+   label: "GET INVOLVED",
+  href: "/page/getInvolved",
+  subItems: [
+    { label: "SPONSOR", href: "/page/getInvolved#sponsor" },
+    { label: "VOLUNTEER", href: "/page/volunteer" },
+  ],
+},
     {
       label: "RESOURCE",
       href: "/resource",
