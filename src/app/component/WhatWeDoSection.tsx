@@ -3,7 +3,7 @@ import Link from "next/link"
 
 export default function WhatWeDoSection() {
   return (
-    <section className="py-16 px-6 md:px-12 lg:px-24">
+    <section className="py-16 px-6 md:px-12 lg:px-24 bg-gray-50">
       <h2 className="text-3xl font-bold text-[#43A047] text-center mb-6">WHAT WE DO?</h2>
       <p className="text-center max-w-4xl mx-auto mb-12">
         New Hope for Orphans organization operates 16 provinces across 25 cities and provinces in Cambodia. We are

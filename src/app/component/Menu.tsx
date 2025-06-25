@@ -42,10 +42,10 @@ export default function NavigationMenu() {
 
   const menuItems: MenuItem[] = [
     {
-      label: "ABOUT US",
-      href: "/about",
+      label: "ABOUT US ",
+      href: "/page/about",
       subItems: [
-        { label: "VISION & MISSION", href: "/about/vision-mission" },
+        { label: "VISION & MISSION", href: "/page/about/vision" },
         { label: "FOUNDER MESSAGE", href: "/page/about/founderMessage" },
         { label: "HOUSE PARENT PROFILE", href: "/page/houseparent" },
       ],
@@ -72,7 +72,7 @@ export default function NavigationMenu() {
   const whatWeDo = [
     {
       label: "SPIRITUAL DEVELOPMENT",
-      href: "/what-we-do/spiritual-development",
+      href: "/page/WhatWeDo/spiritualdevelopment ",
     },
     {
       label: "UNIVERSITY SPONSORSHIP",
@@ -80,7 +80,7 @@ export default function NavigationMenu() {
     },
     {
       label: "SKILLS/VOCATIONAL TRAINING",
-      href: "/what-we-do/vocational-training",
+      href: "/page/WhatWeDo/skill",
     },
     { label: "KID'S CAMP", href: "/what-we-do/kids-camp" },
   ];
@@ -91,11 +91,11 @@ export default function NavigationMenu() {
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
           <Image
-            src="/favi.png"
+            src="/growing1.gif"
             alt="Logo"
             width={60}
             height={60}
-            className="h-14 w-auto"
+            className="h-20 w-auto"
           />
         </Link>
 
