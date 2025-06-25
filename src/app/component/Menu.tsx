@@ -47,7 +47,7 @@ export default function NavigationMenu() {
       subItems: [
         { label: "VISION & MISSION", href: "/about/vision-mission" },
         { label: "FOUNDER MESSAGE", href: "/page/about/founderMessage" },
-        { label: "HOUSE PARENT PROFILE", href: "/about/house-parent-profile" },
+        { label: "HOUSE PARENT PROFILE", href: "/page/houseparent" },
       ],
     },
     {
