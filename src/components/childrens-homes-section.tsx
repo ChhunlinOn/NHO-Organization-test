@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import {
   MapPin,
@@ -227,7 +227,7 @@ export function ChildrensHomesSection() {
 
 
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-8 animate-slide-up">
-              Children's Homes &
+              Children&apos;s Homes &
               <span className="text-green-600 block">Houseparents</span>
             </h1>
 
@@ -280,7 +280,7 @@ export function ChildrensHomesSection() {
                       </h3>
                       <p className="text-gray-600 text-sm leading-relaxed">
                         Children who have endured loss are surrounded by love
-                        that reflects God's grace.
+                        that reflects God&apos;s grace.
                       </p>
                     </div>
                   </div>
@@ -289,16 +289,18 @@ export function ChildrensHomesSection() {
 
               <div className="animate-slide-in-right">
                 <div className="bg-white p-8 rounded-3xl shadow-xl border border-green-100">
-                  <img
+                  <Image
                     src="/houseparent-headr.jpeg"
                     alt="Houseparents Header"
+                    width={800}
+                    height={600}
                     className="w-full h-auto object-cover"
                   />
 
                   <blockquote className="text-center">
                     <p className="text-lg italic text-gray-700 mb-4">
-                      "And now these three remai faith hope, and love But
-                      the greatest of these is love"
+                    &quot;And now these three remai faith hope, and love But
+                      the greatest of these is love&quot;
                     </p>
                     <footer className="text-green-600 font-medium">
                       — 1 Corinthians 13:13
@@ -347,7 +349,7 @@ export function ChildrensHomesSection() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Our Children's Homes
+              Our Children&apos;s Homes
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Discover the unique stories and loving communities that make each
@@ -367,9 +369,11 @@ export function ChildrensHomesSection() {
                 onClick={() => toggleCard(index)}
               >
                 <div className="relative">
-                  <img
+                  <Image
                     src={`/placeholder.svg?height=200&width=300`}
                     alt={`${home.name} exterior`}
+                    width={300}
+                    height={200}
                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute top-4 left-4">

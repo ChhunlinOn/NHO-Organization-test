@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import {
   Heart,
-  Users,
   GraduationCap,
   Camera,
   UserCheck,
@@ -244,7 +243,7 @@ const Page = () => {
             </div>
 
             <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl mb-4">
-              Let's Connect & Create Change
+              Let&apos;s Connect & Create Change
             </h2>
             <p className="text-gray-600 mb-6 text-lg">
               If you have expertise in any of these areas or believe you can contribute in another way, we’d love to hear from you!

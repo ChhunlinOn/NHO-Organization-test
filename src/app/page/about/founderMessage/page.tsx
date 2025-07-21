@@ -105,7 +105,7 @@ export default function FounderMessage() {
                   never return, leaving their children in the care of elderly
                   grandparents or relatives who can no longer provide for them.
                   As a result, countless children are forced into child
-                  labor—girls work as maids, while boys beg for money, raise
+                  labor girls work as maids, while boys beg for money, raise
                   animals, or collect recyclables just to survive.
                 </p>
                 {expandedSections.section1 && (
@@ -239,8 +239,8 @@ export default function FounderMessage() {
 
               <div className="mb-2 text-base">
                 <p>
-                  We cannot do this alone. We need your support—through prayer,
-                  financial contributions, and spreading awareness—so that we
+                  We cannot do this alone. We need your support through prayer,
+                  financial contributions, and spreading awareness so that we
                   can continue to rescue, shelter, and raise these children in
                   the love of Christ.
                 </p>

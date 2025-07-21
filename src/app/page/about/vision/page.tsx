@@ -20,7 +20,7 @@ export default function Vision() {
           className="rounded-md"
         />
       </div>
-
+      
       <div className="max-w-4xl mx-auto space-y-6">
         <p>
           Our mission is to{" "}
@@ -71,7 +71,7 @@ export default function Vision() {
 
         <p>
           At <span className="text-green-600 font-medium">NHO</span>, we are committed to{" "}
-          <span className="text-green-600 font-medium">transforming lives</span> one child at a time – offering{" "}
+          <span className="text-green-600 font-medium">transforming lives</span> one child at a time offering{" "}
           <span className="text-green-600 font-medium">hope, love, and a future filled with promise</span>.
         </p>
       </div>

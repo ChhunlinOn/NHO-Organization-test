@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { useState, useEffect } from "react";
 import {
@@ -288,7 +289,7 @@ export default function HomePage() {
             </div>
 
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-8 animate-slide-up">
-              Children's Homes &
+              Children&apos;s Homes &
               <span className="text-green-600 block">Houseparents</span>
             </h1>
 
@@ -304,8 +305,8 @@ export default function HomePage() {
                         Across Cambodia
                       </h3>
                       <p className="text-gray-600 text-sm leading-relaxed">
-                       Each of our homes is located between one to ten hours' drive from Phnom Penh. Along the way
-                       , you’ll witness breathtaking views of lush rice fields and peaceful countryside life, a reminder of Cambodia’s 
+                       Each of our homes is located between one to ten hours&apos; drive from Phnom Penh. Along the way
+                       , you&apos;ll witness breathtaking views of lush rice fields and peaceful countryside life, a reminder of Cambodia&apos;s 
                        natural beauty and resilience.
                       </p>
                     </div>
@@ -342,7 +343,7 @@ export default function HomePage() {
                       </h3>
                       <p className="text-gray-600 text-sm leading-relaxed">
                         Though these children have endured great loss and hardship, they are surrounded by unwavering love—a love that reflects
-                         God’s grace through the commitment of those who have dedicated their lives to serving Him.
+                         God&apos;s grace through the commitment of those who have dedicated their lives to serving Him.
                       </p>
                     </div>
                   </div>
@@ -351,15 +352,18 @@ export default function HomePage() {
 
               <div className="animate-slide-in-right">
                 <div className="bg-white p-10 rounded-3xl shadow-xl border border-green-100 w-[500px]">
-                  <img
+                  
+                  <Image
                     src="/houseparent-header.jpeg"
                     alt="Children playing in Cambodia countryside"
+                    width={500}
+                    height={300}
                     className="w-full h-120 object-cover rounded-2xl mb-6"
                   />
                   <blockquote className="text-center">
                     <p className="text-lg italic text-gray-700 mb-4">
-                      "And now these three remain: faith, hope, and love. But
-                      the greatest of these is love."
+                      &quot;And now these three remain: faith, hope, and love. But
+                      the greatest of these is love.&quot;
                     </p>
                     <footer className="text-green-600 font-medium">
                       — 1 Corinthians 13:13
@@ -408,7 +412,7 @@ export default function HomePage() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Our Children's Homes
+              Our Children&apos;s Homes
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Discover the unique stories and loving communities that make each
@@ -433,9 +437,11 @@ export default function HomePage() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <img
+                    <Image
                       src={home.image}
                       alt={`${home.name} exterior`}
+                      width={500}
+                      height={192}
                       className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </a>

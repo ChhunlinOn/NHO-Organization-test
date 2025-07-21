@@ -54,10 +54,10 @@ export default function SponsorSection() {
                 <Heart className="w-10 h-10 text-white" />
               </motion.div>
             </div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Sponsor a Child – Be the Difference</h2>
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">Sponsor a Child Be the Difference</h2>
             <div className=" bg-green-600 text-white rounded-2xl p-6 max-w-2xl mx-auto">
               <p className="text-xl  font-bold ">Just $100 USD per month</p>
-              <p className="text-lg ">can transform a child's life completely</p>
+              <p className="text-lg ">can transform a child&apos;s life completely</p>
             </div> 
           </motion.div>
 
@@ -84,7 +84,7 @@ export default function SponsorSection() {
 
           {/* What You Receive */}
           <div className="mb-16">
-            <h3 className="text-2xl font-bold text-center text-gray-800 mb-10">What You'll Receive as a Sponsor</h3>
+            <h3 className="text-2xl font-bold text-center text-gray-800 mb-10">What You&apos;ll Receive as a Sponsor</h3>
             <div className="grid grid-cols-2 gap-6">
               {sponsorBenefits.map((benefit, index) => (
                 <motion.div
