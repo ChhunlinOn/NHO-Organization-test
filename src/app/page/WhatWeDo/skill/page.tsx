@@ -12,7 +12,7 @@ export default function SkillsVocationalTraining() {
       {/* Intro Paragraphs */}
       <div className="text-center mb-12 max-w-4xl mx-auto space-y-4">
         <p className="text-xl sm:text-lg text-start">
-          We believe every young person deserves the opportunity to thrive —
+          We believe every young person deserves the opportunity to thrive
           whether through academic or practical paths. Children in our care
           complete their primary and secondary education through Cambodia&#39;s
           public school system.

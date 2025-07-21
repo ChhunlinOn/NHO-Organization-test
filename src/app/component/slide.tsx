@@ -1,10 +1,11 @@
 "use client"
 
+import React from "react"
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 
-const images = ["/nho.jpg", "/Camp.jpg", "/family.jpg"]
+const images = ["/IMG_7845.JPG", "/P1034456.JPG", "/P1036657.jpg"]
 
 export default function HeroSlider() {
   const [index, setIndex] = useState(0)

@@ -47,7 +47,7 @@ export default function CoinsForKids() {
                 small change into BIG change for children in need!
               </p>
               <p>
-                Whether it's leftover coins from your wallet, your birthday donations, or sponsorship from a personal
+                Whether it&apos;s leftover coins from your wallet, your birthday donations, or sponsorship from a personal
                 challenge or fundraiser — every contribution matters. People around the world have climbed mountains,
                 hosted bake sales, and even donated their coffee money — all to bless the children of New Hope for
                 Children Homes.
@@ -66,7 +66,7 @@ export default function CoinsForKids() {
             <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-2xl p-8 text-center relative">
               <Quote className="w-10 h-10 text-green-300 mx-auto mb-4" />
               <blockquote className="text-2xl font-bold text-gray-800 italic mb-4">
-                "You don't have to do something huge to make a huge difference."
+              &quot;You don&apos;t have to do something huge to make a huge difference.&quot;
               </blockquote>
               <div className="w-16 h-1 bg-green-600 mx-auto"></div>
             </div>
@@ -127,7 +127,7 @@ export default function CoinsForKids() {
             <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-3xl p-10 text-white">
               <h3 className="text-2xl font-bold mb-4">Ready to Start Your Campaign?</h3>
               <p className="text-lg mb-6">
-                We're here to support you with tools and ideas to make your fundraiser a success!
+                We&apos;re here to support you with tools and ideas to make your fundraiser a success!
               </p>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button
