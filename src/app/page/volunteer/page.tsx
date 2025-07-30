@@ -106,7 +106,7 @@ const Page = () => {
             className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto"
             variants={itemVariants}
           >
-            New Hope for Orphans is a well-established organization dedicated to providing Cambodian
+            New Hope for Orphans is a well established organization dedicated to providing Cambodian
              children and young people with access to quality education. Our volunteer program offers a meaningful 
              opportunity to contribute, whether you have specialized skills or simply a passion for helping others. 
             
@@ -116,9 +116,7 @@ const Page = () => {
             className="mt-8 flex justify-center"
             variants={itemVariants}
           >
-            <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 font-semibold rounded-md transition-colors">
-              Get Involved Today
-            </button>
+            
           </motion.div>
         </div>
       </motion.section>
@@ -246,7 +244,7 @@ const Page = () => {
               Let&apos;s Connect & Create Change
             </h2>
             <p className="text-gray-600 mb-6 text-lg">
-              If you have expertise in any of these areas or believe you can contribute in another way, we’d love to hear from you!
+              If you have expertise in any of these areas or believe you can contribute in another way, we&apos;d love to hear from you!
             </p>
             
 
