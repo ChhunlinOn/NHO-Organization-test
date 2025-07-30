@@ -58,6 +58,7 @@ export default function CoinsForKids() {
               <Quote className="w-8 h-8 sm:w-10 sm:h-10 text-green-300 mx-auto mb-4" />
               <blockquote className="text-xl sm:text-2xl font-bold text-gray-800 italic mb-4">
                 "You don&apos;t have to do something huge to make a huge difference."
+
               </blockquote>
               <div className="w-12 h-1 bg-green-600 mx-auto"></div>
             </div>
@@ -94,6 +95,7 @@ export default function CoinsForKids() {
           </div>
 
           {/* Call to Action */}
+
           <div className="text-center">
             <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-3xl p-6 sm:p-8 text-white">
               <h3 className="text-xl sm:text-2xl font-bold mb-4">
@@ -101,6 +103,7 @@ export default function CoinsForKids() {
               </h3>
               <p className="text-base sm:text-lg mb-6">
                 We're here to support you with tools and ideas to make your fundraiser a success!
+
               </p>
               <div className="inline-block transform hover:scale-105 active:scale-95 transition-transform duration-300">
                

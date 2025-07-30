@@ -1,5 +1,14 @@
-import PDFFlipViewer from '../../component/PDFViewer';
-
 export default function App() {
-  return <PDFFlipViewer filePath="/nho.pdf" />;
+  return (
+    <div style={{ width: "80%", height: "100vh" , margin: "0 auto" }}>
+      <iframe
+        src="https://online.fliphtml5.com/dhpmb/waao/"
+        width="100%"
+        height="100%"
+        style={{ border: "none" }}
+        title="FlipHTML5 Magazine"
+        allowFullScreen
+      />
+    </div>
+  );
 }

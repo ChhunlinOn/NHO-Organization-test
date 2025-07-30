@@ -35,7 +35,7 @@ export default function AboutSection() {
               <div className="text-6xl font-bold text-green-600">∞</div>
               <h3 className="text-xl font-semibold text-gray-800">Endless Hope</h3>
               <p className="text-gray-600">
-                We believe that every child deserves love, opportunity, and hope and we can't do it alone. By
+                We believe that every child deserves love, opportunity, and hope and we can&apos;t do it alone. By
                 partnering with us, you become a vital part of the mission.
               </p>
             </motion.div>

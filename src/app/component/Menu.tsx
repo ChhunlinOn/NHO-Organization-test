@@ -48,6 +48,7 @@ export default function NavigationMenu() {
         { label: "VISION & MISSION", href: "/page/about/vision" },
         { label: "FOUNDER MESSAGE", href: "/page/about/founderMessage" },
         { label: "HOUSE PARENT PROFILE", href: "/page/houseparent" },
+        { label: "Board Director", "href": "/page/boarddirector" }
       ],
     },
    {
@@ -215,7 +216,7 @@ export default function NavigationMenu() {
                 </Link>
               ))}
             </div>
-          </div>
+          </div>  
 
           {/* Mobile Main Menu Items */}
           {menuItems.map((item, index) => (

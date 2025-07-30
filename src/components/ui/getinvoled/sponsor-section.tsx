@@ -54,6 +54,7 @@ export default function SponsorSection() {
                 <Heart className="w-10 h-10 text-white" />
               </motion.div>
             </div>
+
             <h2 className="text-3xl font-bold text-gray-800 mb-4">
               Sponsor a Child Be the Difference
             </h2>
@@ -61,6 +62,7 @@ export default function SponsorSection() {
               <p className="text-xl font-bold">Just $100 USD per month</p>
               <p className="text-lg">can transform a child's life completely</p>
             </div>
+
           </motion.div>
 
           {/* What Sponsorship Provides */}

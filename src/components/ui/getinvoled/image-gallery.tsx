@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Camera } from "lucide-react"
+import Image from "next/image"
 
 export default function ImageGallery() {
   const images = [
@@ -47,10 +48,12 @@ export default function ImageGallery() {
                 whileHover={{ scale: 1.05 }}
                 className="bg-gray-200 rounded-2xl h-56 flex items-center justify-center overflow-hidden cursor-pointer shadow-lg"
               >
-                 <img
+                 <Image
                   src={image.src}
                   alt={image.alt}
                   className="w-full h-full object-cover"
+                  layout="fill"
+                  objectFit="cover"
                 />
               </motion.div>
             ))}
