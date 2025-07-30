@@ -46,7 +46,7 @@ export default function ContactPage() {
 
   return (
     <div>
-      <section className="bg-amber-50 py-20 px-4">
+      <section className="bg-gradient-to-r from-green-50 to-green-100 py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-5xl font-bold text-green-600 mb-8">CONTACT US</h2>
           <p className="text-gray-700 max-w-2xl mx-auto">

@@ -8,24 +8,6 @@ export default function AboutSection() {
     <section className="py-32 bg-gray-50">
       <div className="container mx-auto px-6">
         <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <div className="flex justify-center mb-8">
-              <motion.div
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                className="bg-green-600 p-4 rounded-full"
-              >
-                <Heart className="w-12 h-12 text-white" />
-              </motion.div>
-            </div>
-            <h2 className="text-5xl font-bold text-gray-800 mb-12">Our Mission</h2>
-          </motion.div>
 
           <div className="grid md:grid-cols-3 gap-12 text-center">
             <motion.div

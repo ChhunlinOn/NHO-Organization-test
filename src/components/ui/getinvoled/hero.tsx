@@ -1,60 +1,42 @@
 "use client";
+
 import { motion } from "framer-motion";
-import { Heart, Users, Globe } from "lucide-react";
+import { Heart } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="bg-white text-green-600 py-32">
-      <div className="container mx-auto px-6">
+    <section className="bg-gradient-to-br from-green-50 via-white to-green-100 text-green-600 py-20 md:py-32">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
+
+         
+          <motion.div
+            initial={{ y: -10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
+            className="mx-auto mb-6 inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-600"
+          >
+            <Heart className="w-8 h-8 text-white" />
+          </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-6xl font-bold mb-8"
+            className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 leading-tight sm:leading-snug"
           >
-            <h2 className="text-6xl font-bold text-center leading-snug">
-              <span className="text-black">Make</span>{" "}
-              <span className="text-green-600">a Difference</span>{" "}
-              <span className="bg-black bg-clip-text text-transparent">
-                Today
-              </span>{" "}
-              <span className="text-green-700"> Sponsor with</span>{" "}
-              <span className="text-black">New Hope for Orphans</span>
-            </h2>
+            <span className="text-black">Make a Difference Today</span>
+            <br />
+            <span className="text-green-600">Sponsor with</span>{" "}
+            <span className="text-black">New Hope for Orphans</span>
           </motion.h1>
-         
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="grid grid-cols-3 gap-8 max-w-2xl mx-auto"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto mt-10"
           >
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="bg-green-600 rounded-xl p-6 backdrop-blur-sm"
-            >
-              <Heart className="w-10 h-10 text-white mx-auto mb-3" />
-              <p className="text-lg text-white font-bold">450+</p>
-              <p className="text-sm text-green-100">Children Supported</p>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="bg-green-600 rounded-xl p-6 backdrop-blur-sm"
-            >
-              <Users className="w-10 h-10 text-white mx-auto mb-3" />
-              <p className="text-lg text-white font-bold">Global</p>
-              <p className="text-sm text-green-100">Community</p>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="bg-green-600 rounded-xl p-6 backdrop-blur-sm"
-            >
-              <Globe className="w-10 h-10 text-white mx-auto mb-3" />
-              <p className="text-lg text-white font-bold">Worldwide</p>
-              <p className="text-sm text-green-100">Impact</p>
-            </motion.div>
+            {/* Add your cards or buttons here if needed */}
           </motion.div>
         </div>
       </div>
