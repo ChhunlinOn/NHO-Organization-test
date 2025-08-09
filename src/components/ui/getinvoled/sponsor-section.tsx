@@ -60,7 +60,7 @@ export default function SponsorSection() {
             </h2>
             <div className="bg-green-600 text-white rounded-2xl p-6 max-w-2xl mx-auto">
               <p className="text-xl font-bold">Just $100 USD per month</p>
-              <p className="text-lg">can transform a child's life completely</p>
+              <p className="text-lg">can transform a child&apos;s life completely</p>
             </div>
 
           </motion.div>

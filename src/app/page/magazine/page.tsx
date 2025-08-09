@@ -1,6 +1,6 @@
 export default function App() {
   return (
-    <div style={{ width: "80%", height: "100vh" , margin: "0 auto" }}>
+    <div className="relative mt-auto" style={{ width: "80%", height: "100vh" , margin: "0 auto" }} >
       <iframe
         src="https://online.fliphtml5.com/dhpmb/waao/"
         width="100%"

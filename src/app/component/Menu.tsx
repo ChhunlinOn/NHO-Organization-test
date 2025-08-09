@@ -1,277 +1,319 @@
-"use client";
-
-import { useState, useRef, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { ChevronDown, Menu, X } from "lucide-react";
+"use client"
+import { useState, useRef, useEffect } from "react"
+import Link from "next/link"
+import Image from "next/image"
+import { ChevronDown, Menu, X } from "lucide-react"
 
 type MenuItem = {
-  label: string;
-  href: string;
-  subItems?: { label: string; href: string }[];
-};
+  label: string
+  href: string
+  subItems?: { label: string; href: string }[]
+}
 
 export default function NavigationMenu() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const navRef = useRef<HTMLDivElement>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const navRef = useRef<HTMLDivElement>(null)
 
   // Function to convert text to title case
   const toTitleCase = (str: string) => {
     return str.replace(/\w\S*/g, (txt) => {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
-  };
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+    })
+  }
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
-        setMobileMenuOpen(false);
+        setMobileMenuOpen(false)
+        setActiveDropdown(null)
       }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
 
   // Handle mobile dropdown toggles
   const toggleMobileDropdown = (label: string) => {
-    setActiveDropdown(activeDropdown === label ? null : label);
-  };
+    setActiveDropdown(activeDropdown === label ? null : label)
+  }
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false)
+    setActiveDropdown(null)
+  }
 
   const menuItems: MenuItem[] = [
     {
-      label: "ABOUT US ",
+      label: "ABOUT US",
       href: "/page/about",
       subItems: [
         { label: "VISION & MISSION", href: "/page/about/vision" },
         { label: "FOUNDER MESSAGE", href: "/page/about/founderMessage" },
         { label: "HOUSE PARENT PROFILE", href: "/page/houseparent" },
-        { label: "Board Director", "href": "/page/boarddirector" }
+        { label: "BOARD DIRECTOR", href: "/page/boarddirector" },
       ],
     },
-   {
-   label: "GET INVOLVED",
-  href: "/page/getInvolved",
-  subItems: [
-    { label: "SPONSOR", href: "/page/getInvolved#sponsor" },
-    { label: "VOLUNTEER", href: "/page/volunteer" },
-  ],
-},
+    {
+      label: "GET INVOLVED",
+      href: "/page/getInvolved",
+      subItems: [
+        { label: "SPONSOR", href: "/page/getInvolved#sponsor" },
+        { label: "VOLUNTEER", href: "/page/volunteer" },
+      ],
+    },
     {
       label: "RESOURCE",
       href: "/resource",
       subItems: [
-        { label: "News", href: "/page/new" },
-        { label: "Reports", href: "/resource/reports" },
-        { label: "Photos", href: "/resource/photos" },
+        { label: "NEWS", href: "/page/new" },
+        { label: "REPORTS", href: "/resource/reports" },
+        { label: "PHOTOS", href: "/resource/photos" },
+        { label: "MAGAZINES", href: "/page/magazine" }
       ],
     },
-  ];
+  ]
 
   const whatWeDo = [
     {
       label: "SPIRITUAL DEVELOPMENT",
-      href: "/page/WhatWeDo/spiritualdevelopment ",
+      href: "/page/WhatWeDo/spiritualdevelopment",
     },
     {
-      label: "UNIVERSITY SPONSORSHIP",
-      href: "/what-we-do/university-sponsorship",
-    },
-    {
-      label: "SKILLS/VOCATIONAL TRAINING",
+      label: "UNIVERSITY & SKILLS TRAINING",
       href: "/page/WhatWeDo/skill",
     },
-    { label: "KID'S CAMP", href: "/what-we-do/kids-camp" },
-  ];
+    {
+      label: "KID'S CAMP",
+      href: "/page/WhatWeDo/kidcamp",
+    },
+  ]
 
   return (
-    <nav className="w-full bg-white shadow-md z-50" ref={navRef}>
-      <div className="container mx-auto flex flex-wrap items-center justify-between py-4 px-6">
-        {/* Logo */}
-        <Link href="/" className="flex items-center space-x-2">
-          <Image
-            src="/growing1.gif"
-            alt="Logo"
-            width={60}
-            height={60}
-            className="h-20 w-auto"
-          />
-        </Link>
-
-        {/* Mobile Menu Toggle */}
-        <button
-          className="lg:hidden p-2 text-gray-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50 rounded-md"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-expanded={mobileMenuOpen}
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-
-        {/* Desktop Menu */}
-        <div className="hidden lg:flex lg:items-center lg:space-x-1">
-          {/* What We Do Dropdown */}
-          <div className="relative group w-64">
-            <button className="w-full flex items-center justify-between px-6 py-4 text-black font-bold group-hover:bg-[#43A047] group-hover:text-white transition-all duration-200 rounded-t-md">
-              <span className="mx-auto">WHAT WE DO?</span>
-              <ChevronDown
-                size={16}
-                className="transition-transform duration-200 group-hover:rotate-180"
+    <nav
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled ? "bg-white/95 backdrop-blur-md shadow-lg" : "bg-white shadow-md"
+      }`}
+      ref={navRef}
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-3 z-50">
+            <div className="relative">
+              <Image
+                src="/growing1.gif"
+                alt="Logo"
+                width={50}
+                height={50}
+                className="h-12 w-12 sm:h-14 sm:w-14 transition-transform duration-300 hover:scale-110"
               />
-            </button>
-
-            <div className="absolute left-0 mt-0 w-full bg-[#43A047] text-white rounded-b-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-20">
-              {whatWeDo.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.href}
-                  className="block px-6 py-3 font-bold transition-all duration-200 text-center hover:underline hover:underline-offset-15 hover:font-extrabold"
-                >
-                  {toTitleCase(item.label)}
-                </Link>
-              ))}
             </div>
-          </div>
-
-          {/* Main Menu Items */}
-          {menuItems.map((item, index) => (
-           <div key={index} className="relative group w-64">
-           <div className="w-full flex items-center justify-between px-6 py-4 text-black font-bold group-hover:bg-[#43A047] group-hover:text-white transition-all duration-200 rounded-t-md">
-             <span className="mx-auto">{item.label}</span>
-             <ChevronDown
-               size={16}
-               className="transition-transform duration-200 group-hover:rotate-180"
-             />
-           </div>
-           {item.subItems && (
-             <div className="absolute left-0 mt-0 w-full bg-[#43A047] text-white rounded-b-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-20">
-               {item.subItems.map((subItem, subIndex) => (
-                 <Link
-                   key={subIndex}
-                   href={subItem.href}
-                   className="block px-6 py-3 font-bold transition-all duration-200 text-center hover:underline hover:underline-offset-15 hover:font-extrabold"
-                 >
-                   {toTitleCase(subItem.label)}
-                 </Link>
-               ))}
-             </div>
-           )}
-         </div>
-         
-          ))}
-        </div>
-
-        {/* Action Buttons */}
-        <div className="hidden lg:flex lg:items-center lg:space-x-2">
-          <Link
-            href="/support"
-            className="px-6 py-2 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition-colors"
-          >
-            SUPPORT
           </Link>
-          <Link
-            href="/page/contact"
-            className="px-6 py-2 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition-colors"
-          >
-            CONTACT
-          </Link>
-        </div>
 
-        {/* Mobile Menu */}
-        <div
-          className={`${
-            mobileMenuOpen ? "flex" : "hidden"
-          } lg:hidden flex-col w-full mt-4 border-t border-gray-200 pt-4`}
-        >
-          {/* Mobile What We Do Dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => toggleMobileDropdown("WHAT WE DO?")}
-              className="flex items-center justify-between w-full px-4 py-2 text-left text-black font-bold hover:text-green-600"
-            >
-              <span>WHAT WE DO?</span>
-              <ChevronDown
-                size={16}
-                className={`transform transition-transform duration-200 ${
-                  activeDropdown === "WHAT WE DO?" ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-            <div
-              className={`${
-                activeDropdown === "WHAT WE DO?"
-                  ? "max-h-96 opacity-100 visible"
-                  : "max-h-0 opacity-0 invisible"
-              } overflow-hidden transition-all duration-300 ease-in-out bg-green-600 text-white rounded-md mt-1`}
-            >
-              {whatWeDo.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.href}
-                  className="block px-6 py-3 font-bold hover:bg-green-700 border-b border-white/20 normal-case"
-                >
-                  {toTitleCase(item.label)}
-                </Link>
-              ))}
-            </div>
-          </div>  
-
-          {/* Mobile Main Menu Items */}
-          {menuItems.map((item, index) => (
-            <div key={index} className="relative">
-              <button
-                onClick={() => toggleMobileDropdown(item.label)}
-                className="flex items-center justify-between w-full px-4 py-2 text-left text-black font-bold hover:text-green-600"
-              >
-                <span>{item.label}</span>
-                <ChevronDown
-                  size={16}
-                  className={`transform transition-transform duration-200 ${
-                    activeDropdown === item.label ? "rotate-180" : ""
-                  }`}
-                />
+          {/* Desktop Menu */}
+          <div className="hidden lg:flex items-center space-x-8">
+            {/* What We Do Dropdown */}
+            <div className="relative group">
+              <button className="flex items-center px-6 py-3 text-gray-700 font-semibold hover:text-[#43A047] transition-colors duration-200 group">
+                <span>WHAT WE DO</span>
+                <ChevronDown size={16} className="ml-1 transition-transform duration-200 group-hover:rotate-180" />
               </button>
-              {item.subItems && (
-                <div
-                  className={`${
-                    activeDropdown === item.label
-                      ? "max-h-96 opacity-100 visible"
-                      : "max-h-0 opacity-0 invisible"
-                  } overflow-hidden transition-all duration-300 ease-in-out bg-green-600 text-white rounded-md mt-1`}
-                >
-                  {item.subItems.map((subItem, subIndex) => (
+              <div className="absolute top-full left-0 mt-1 w-72 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                <div className="py-2">
+                  {whatWeDo.map((item, index) => (
                     <Link
-                      key={subIndex}
-                      href={subItem.href}
-                      className="block px-6 py-3 font-bold hover:bg-green-700 border-b border-white/20 normal-case"
+                      key={index}
+                      href={item.href}
+                      className="block px-4 py-3 text-gray-700 hover:text-[#43A047] hover:bg-green-50 transition-colors duration-200 font-medium"
                     >
-                      {toTitleCase(subItem.label)}
+                      {toTitleCase(item.label)}
                     </Link>
                   ))}
                 </div>
-              )}
+              </div>
             </div>
-          ))}
 
-          {/* Mobile Action Buttons */}
-          <div className="flex flex-col space-y-2 mt-4">
+            {/* Main Menu Items */}
+            {menuItems.map((item, index) => (
+              <div key={index} className="relative group">
+                <button className="flex items-center px-6 py-3 text-gray-700 font-semibold hover:text-[#43A047] transition-colors duration-200">
+                  <span>{item.label}</span>
+                  {item.subItems && (
+                    <ChevronDown size={16} className="ml-1 transition-transform duration-200 group-hover:rotate-180" />
+                  )}
+                </button>
+                {item.subItems && (
+                  <div className="absolute top-full left-0 mt-1 w-72 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                    <div className="py-2">
+                      {item.subItems.map((subItem, subIndex) => (
+                        <Link
+                          key={subIndex}
+                          href={subItem.href}
+                          className="block px-4 py-3 text-gray-700 hover:text-[#43A047] hover:bg-green-50 transition-colors duration-200 font-medium"
+                        >
+                          {toTitleCase(subItem.label)}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Action Buttons */}
+          <div className="hidden lg:flex items-center space-x-4 ml-8">
             <Link
               href="/support"
-              className="px-6 py-2 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition-colors text-center"
+              className="px-6 py-2.5 bg-[#43A047] text-white font-semibold rounded-full hover:bg-[#388E3C] transform hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg"
             >
               SUPPORT
             </Link>
             <Link
-              href="/contact"
-              className="px-6 py-2 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition-colors text-center"
+              href="/page/contact"
+              className="px-6 py-2.5 border-2 border-[#43A047] text-[#43A047] font-semibold rounded-full hover:bg-[#43A047] hover:text-white transition-all duration-200"
             >
               CONTACT
             </Link>
           </div>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className="lg:hidden p-2 text-gray-600 hover:text-[#43A047] focus:outline-none focus:ring-2 focus:ring-[#43A047] focus:ring-opacity-50 rounded-lg transition-colors duration-200"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-expanded={mobileMenuOpen}
+            aria-label="Toggle menu"
+          >
+            <div className="relative w-6 h-6">
+              <Menu
+                size={24}
+                className={`absolute inset-0 transition-all duration-300 ${
+                  mobileMenuOpen ? "opacity-0 rotate-180" : "opacity-100 rotate-0"
+                }`}
+              />
+              <X
+                size={24}
+                className={`absolute inset-0 transition-all duration-300 ${
+                  mobileMenuOpen ? "opacity-100 rotate-0" : "opacity-0 -rotate-180"
+                }`}
+              />
+            </div>
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        <div
+          className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            mobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="py-4 space-y-2 bg-white border-t border-gray-100">
+            {/* Mobile What We Do Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => toggleMobileDropdown("WHAT WE DO")}
+                className="flex items-center justify-between w-full px-4 py-3 text-left text-gray-700 font-semibold hover:text-[#43A047] hover:bg-green-50 rounded-lg transition-all duration-200"
+              >
+                <span>WHAT WE DO</span>
+                <ChevronDown
+                  size={16}
+                  className={`transform transition-transform duration-200 ${
+                    activeDropdown === "WHAT WE DO" ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  activeDropdown === "WHAT WE DO" ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                }`}
+              >
+                <div className="pl-4 space-y-1">
+                  {whatWeDo.map((item, index) => (
+                    <Link
+                      key={index}
+                      href={item.href}
+                      onClick={closeMobileMenu}
+                      className="block px-4 py-2 text-gray-600 hover:text-[#43A047] hover:bg-green-50 rounded-lg transition-colors duration-200"
+                    >
+                      {toTitleCase(item.label)}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile Main Menu Items */}
+            {menuItems.map((item, index) => (
+              <div key={index} className="relative">
+                <button
+                  onClick={() => toggleMobileDropdown(item.label)}
+                  className="flex items-center justify-between w-full px-4 py-3 text-left text-gray-700 font-semibold hover:text-[#43A047] hover:bg-green-50 rounded-lg transition-all duration-200"
+                >
+                  <span>{item.label}</span>
+                  {item.subItems && (
+                    <ChevronDown
+                      size={16}
+                      className={`transform transition-transform duration-200 ${
+                        activeDropdown === item.label ? "rotate-180" : ""
+                      }`}
+                    />
+                  )}
+                </button>
+                {item.subItems && (
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      activeDropdown === item.label ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                    }`}
+                  >
+                    <div className="pl-4 space-y-1">
+                      {item.subItems.map((subItem, subIndex) => (
+                        <Link
+                          key={subIndex}
+                          href={subItem.href}
+                          onClick={closeMobileMenu}
+                          className="block px-4 py-2 text-gray-600 hover:text-[#43A047] hover:bg-green-50 rounded-lg transition-colors duration-200"
+                        >
+                          {toTitleCase(subItem.label)}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {/* Mobile Action Buttons */}
+            <div className="flex flex-col space-y-3 pt-4 px-4">
+              <Link
+                href="/support"
+                onClick={closeMobileMenu}
+                className="px-6 py-3 bg-[#43A047] text-white font-semibold rounded-full hover:bg-[#388E3C] transition-colors duration-200 text-center shadow-md"
+              >
+                SUPPORT
+              </Link>
+              <Link
+                href="/page/contact"
+                onClick={closeMobileMenu}
+                className="px-6 py-3 border-2 border-[#43A047] text-[#43A047] font-semibold rounded-full hover:bg-[#43A047] hover:text-white transition-all duration-200 text-center"
+              >
+                CONTACT
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
-  );
+  )
 }

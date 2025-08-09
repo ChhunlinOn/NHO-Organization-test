@@ -48,7 +48,7 @@ export default function NewsPage() {
   const newsData = generateLargeNewsData()
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
+    <div className="container mx-auto px-4 py-8 max-w-6xl mt-16">
       {/* Header Section */}
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-6xl font-bold text-green-500 mb-2">NEWS</h1>
