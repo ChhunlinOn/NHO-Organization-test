@@ -1,8 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Coins, Gift, Users, Coffee, Quote, Rocket } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Coins, Gift, Users, Quote, } from "lucide-react"
 
 export default function CoinsForKids() {
  
@@ -57,7 +56,7 @@ export default function CoinsForKids() {
             <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-2xl p-6 sm:p-8 text-center relative mb-12">
               <Quote className="w-8 h-8 sm:w-10 sm:h-10 text-green-300 mx-auto mb-4" />
               <blockquote className="text-xl sm:text-2xl font-bold text-gray-800 italic mb-4">
-                "You don&apos;t have to do something huge to make a huge difference."
+                &quot;You don&apos;t have to do something huge to make a huge difference.&quot;
 
               </blockquote>
               <div className="w-12 h-1 bg-green-600 mx-auto"></div>
@@ -102,7 +101,7 @@ export default function CoinsForKids() {
                 Ready to Start Your Campaign?
               </h3>
               <p className="text-base sm:text-lg mb-6">
-                We're here to support you with tools and ideas to make your fundraiser a success!
+                We &apos;re here to support you with tools and ideas to make your fundraiser a success!
 
               </p>
               <div className="inline-block transform hover:scale-105 active:scale-95 transition-transform duration-300">

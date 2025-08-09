@@ -73,7 +73,7 @@ const Page = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-100">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-100 mt-10">
       {/* Hero Section */}
       <motion.section
         className="relative px-6 py-16 lg:px-8"

@@ -1,16 +1,7 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import {
-  MapPin,
-  Users,
-  Building,
-  Heart,
-  ChevronDown,
-  ChevronUp,
-  Home,
-  Star,
-} from "lucide-react";
+"use client"
+import { useState, useEffect } from "react"
+import { MapPin, Users, Building, Heart, ChevronDown, ChevronUp, Home, Star } from "lucide-react"
+import Image from "next/image"
 
 // This data structure shows how your API data should be formatted
 const homesData = [
@@ -25,7 +16,7 @@ const homesData = [
     established: "Original Home",
     image: "/All Home Pic/BC Home.jpg",
     highlight: "Legacy of Love",
-    mapLink: "https://maps.app.goo.gl/bLqRbnJNcYv5QTga7"
+    mapLink: "https://maps.app.goo.gl/bLqRbnJNcYv5QTga7",
   },
   {
     id: 2,
@@ -38,7 +29,7 @@ const homesData = [
     established: "Border Rescue",
     image: "/All Home Pic/OM Home.jpg",
     highlight: "Rescue",
-    mapLink: "https://maps.app.goo.gl/vvkWWoNfgavRDZ3C7  "
+    mapLink: "https://maps.app.goo.gl/vvkWWoNfgavRDZ3C7",
   },
   {
     id: 3,
@@ -51,7 +42,7 @@ const homesData = [
     established: "Family Legacy",
     image: "/All Home Pic/KS Home.jpg",
     highlight: "Generational Care",
-    mapLink: "https://maps.app.goo.gl/7Npyfs3DkYmYHgYd9 "
+    mapLink: "https://maps.app.goo.gl/7Npyfs3DkYmYHgYd9",
   },
   {
     id: 4,
@@ -64,7 +55,7 @@ const homesData = [
     established: "Former Orphan",
     image: "/All Home Pic/KT Home.jpg",
     highlight: "Full Circle Story",
-    mapLink: "https://maps.app.goo.gl/MopRqx5VqeYveuFBA"
+    mapLink: "https://maps.app.goo.gl/MopRqx5VqeYveuFBA",
   },
   {
     id: 5,
@@ -77,7 +68,7 @@ const homesData = [
     established: "Since 2008",
     image: "/All Home Pic/PS Home.jpg",
     highlight: "Growing Alumni",
-    mapLink: "https://maps.app.goo.gl/qP66FShUc7W3ZtiD7"
+    mapLink: "https://maps.app.goo.gl/qP66FShUc7W3ZtiD7",
   },
   {
     id: 6,
@@ -90,7 +81,7 @@ const homesData = [
     established: "2017",
     image: "/All Home Pic/TK Home.jpg",
     highlight: "New Stability",
-    mapLink: "https://maps.app.goo.gl/B1EcpcFKLFsC55HLA"
+    mapLink: "https://maps.app.goo.gl/B1EcpcFKLFsC55HLA",
   },
   {
     id: 7,
@@ -103,7 +94,7 @@ const homesData = [
     established: "HQ Center",
     image: "/All Home Pic/PP Home.jpg",
     highlight: "Education Hub",
-    mapLink: "https://maps.app.goo.gl/HAUUP6H8BLD3enFA6 "
+    mapLink: "https://maps.app.goo.gl/HAUUP6H8BLD3enFA6",
   },
   {
     id: 8,
@@ -116,7 +107,7 @@ const homesData = [
     established: "Alumni Led",
     image: "/All Home Pic/KP Home.jpeg",
     highlight: "Boys' Sanctuary",
-    mapLink: "https://maps.app.goo.gl/qpHTzu4RXtWoDb8x8"
+    mapLink: "https://maps.app.goo.gl/qpHTzu4RXtWoDb8x8",
   },
   {
     id: 9,
@@ -129,7 +120,7 @@ const homesData = [
     established: "Since 2006",
     image: "/nho.jpg",
     highlight: "Next Generation",
-    mapLink: "https://maps.app.goo.gl/DRzVgR7kpKEV1JXn7"
+    mapLink: "https://maps.app.goo.gl/DRzVgR7kpKEV1JXn7",
   },
   {
     id: 10,
@@ -142,7 +133,7 @@ const homesData = [
     established: "Family Legacy",
     image: "/All Home Pic/KM Home.jpg",
     highlight: "Growing Hope",
-    mapLink: "https://maps.app.goo.gl/sWi1Tr6DsxLmin568 "
+    mapLink: "https://maps.app.goo.gl/sWi1Tr6DsxLmin568",
   },
   {
     id: 11,
@@ -155,7 +146,7 @@ const homesData = [
     established: "Girls' Home",
     image: "/All Home Pic/BB2 Home.jpg",
     highlight: "Peaceful Haven",
-    mapLink: "https://maps.app.goo.gl/NjTbu1vRKRf9B7YC6 "
+    mapLink: "https://maps.app.goo.gl/NjTbu1vRKRf9B7YC6",
   },
   {
     id: 12,
@@ -168,7 +159,7 @@ const homesData = [
     established: "Since 2011",
     image: "/All Home Pic/BB1 Home.jpg",
     highlight: "Shepherd&apos;s Heart",
-    mapLink: "https://maps.app.goo.gl/bDbu6JRLSsH3pvYV9"
+    mapLink: "https://maps.app.goo.gl/bDbu6JRLSsH3pvYV9",
   },
   {
     id: 13,
@@ -179,9 +170,9 @@ const homesData = [
     story:
       "A sweet and peaceful home that feels like one big family. Set in nature, complete with a chicken coop, it offers the children a safe and simple life surrounded by God&apos;s creation.",
     established: "Veteran Leaders",
-    image: "/All Home Pic/SE Home.jpg",
+    image: "/All Home Pic/BB1 Home.jpg",
     highlight: "Experienced Care",
-    mapLink: "https://maps.app.goo.gl/fZhqa8j17ApoUSMZ6"
+    mapLink: "https://maps.app.goo.gl/fZhqa8j17ApoUSMZ6",
   },
   {
     id: 14,
@@ -194,7 +185,7 @@ const homesData = [
     established: "Built 2016",
     image: "/All Home Pic/PL Home.jpg",
     highlight: "Spiritual Growth",
-    mapLink: "https://maps.app.goo.gl/Gr7m4RZgspXcgdmv5 "
+    mapLink: "https://maps.app.goo.gl/Gr7m4RZgspXcgdmv5",
   },
   {
     id: 15,
@@ -207,7 +198,7 @@ const homesData = [
     established: "Joined 2013",
     image: "/All Home Pic/PVH Home.jpg",
     highlight: "United Vision",
-    mapLink: "https://maps.app.goo.gl/FQ3UoAx1qViA5zJn6 "
+    mapLink: "https://maps.app.goo.gl/FQ3UoAx1qViA5zJn6",
   },
   {
     id: 16,
@@ -220,15 +211,14 @@ const homesData = [
     established: "Heart-Led",
     image: "/All Home Pic/PV Home.jpg",
     highlight: "Father&apos;s Love",
-    mapLink: "https://maps.app.goo.gl/bo1xT1pKcTtAga6d7"
-  }
-];
+    mapLink: "https://maps.app.goo.gl/bo1xT1pKcTtAga6d7",
+  },
+]
 
-
-export default function HomePage() {
+export default function HouseParentsPage() {
   // State for managing expanded cards and animations
-  const [expandedCard, setExpandedCard] = useState<number | null>(null);
-  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
+  const [expandedCard, setExpandedCard] = useState<number | null>(null)
+  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set())
 
   // Animation observer for cards appearing on scroll
   useEffect(() => {
@@ -236,166 +226,135 @@ export default function HomePage() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const index = Number.parseInt(
-              entry.target.getAttribute("data-index") || "0"
-            );
-            setVisibleCards((prev) => new Set([...prev, index]));
+            const index = Number.parseInt(entry.target.getAttribute("data-index") || "0")
+            setVisibleCards((prev) => new Set([...prev, index]))
           }
-        });
+        })
       },
-      { threshold: 0.1 }
-    );
-
-    const cards = document.querySelectorAll("[data-index]");
-    cards.forEach((card) => observer.observe(card));
-
-    return () => observer.disconnect();
-  }, []);
+      { threshold: 0.1 },
+    )
+    const cards = document.querySelectorAll("[data-index]")
+    cards.forEach((card) => observer.observe(card))
+    return () => observer.disconnect()
+  }, [])
 
   // Toggle card expansion
   const toggleCard = (index: number) => {
-    setExpandedCard(expandedCard === index ? null : index);
-  };
+    setExpandedCard(expandedCard === index ? null : index)
+  }
 
   // Calculate totals for statistics
-  const totalChildren = homesData.reduce((sum, home) => sum + home.children, 0);
-  const totalBuildings = homesData.reduce(
-    (sum, home) => sum + home.buildings,
-    0
-  );
+  const totalChildren = homesData.reduce((sum, home) => sum + home.children, 0)
+  const totalBuildings = homesData.reduce((sum, home) => sum + home.buildings, 0)
 
-  /* 
-    TO FETCH FROM API LATER:
-    
-    1. Replace the homesData array above with:
-       const [homesData, setHomesData] = useState([])
-    
-    2. Add useEffect to fetch data:
-       useEffect(() => {
-         const fetchHomes = async () => {
-           try {
-             const response = await fetch('/api/homes')
-             const data = await response.json()
-             setHomesData(data)
-           } catch (error) {
-             console.error('Error fetching homes:', error)
-           }
-         }
-         fetchHomes()
-       }, [])
-    
-    3. Make sure your API returns data in the same format as homesData above
-  */
 
   return (
-    <main className="min-h-screen bg-white">
-      {/* Space reserved for menu component */}
-      <div className="h-16 bg-white border-b border-green-100">
-        {/* Your menu component goes here */}
-      </div>
-
+    <main className="min-h-screen bg-white mt-10">
       {/* Hero Section */}
-  <section className="relative bg-gradient-to-br from-green-50 via-white to-green-100 py-16 md:py-20">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center max-w-4xl mx-auto">
-      <div className="inline-flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
-        <Heart className="w-4 h-4 mr-2" />
-        Homes Across Cambodia
-      </div>
-
-      <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-8">
-        Children's Homes &<span className="text-green-600 block">Houseparents</span>
-      </h1>
-    </div>
-
-    {/* Main Content Grid */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start mb-16">
-      {/* Left Text Cards */}
-      <div className="space-y-6">
-        {[
-          {
-            icon: <MapPin className="w-6 h-6 text-green-600" />,
-            title: "Across Cambodia",
-            text: `Each of our homes is located between one to ten hours drive from Phnom Penh. Along the way, you'll witness breathtaking views of lush rice fields and peaceful countryside life, a reminder of Cambodia's natural beauty and resilience.`,
-          },
-          {
-            icon: <Users className="w-6 h-6 text-green-600" />,
-            title: "Dedicated Houseparents",
-            text: `At the heart of every home are our dedicated houseparents, many of whom are long-time pastors or have been Christians for over five years. They serve not only as caregivers but as spiritual mentors, guiding these children to discover hope, faith, and a future in Christ.`,
-          },
-          {
-            icon: <Heart className="w-6 h-6 text-green-600" />,
-            title: "Unwavering Love",
-            text: `Though these children have endured great loss and hardship, they are surrounded by unwavering love a love that reflects God's grace through the commitment of those who have dedicated their lives to serving Him.`,
-          },
-        ].map(({ icon, title, text }, i) => (
-          <div
-            key={i}
-            className={`bg-white p-6 rounded-2xl shadow-md border border-green-100 animate-slide-in-left delay-[${i * 100}ms]`}
-          >
-            <div className="flex items-start space-x-4">
-              <div className="bg-green-100 p-3 rounded-full">{icon}</div>
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{text}</p>
-              </div>
+      <section className="relative bg-gradient-to-br from-green-50 via-white to-green-100 py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-4xl mx-auto mb-12">
+            <div className="inline-flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
+              <Heart className="w-4 h-4 mr-2" />
+              Homes Across Cambodia
             </div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-8">
+              Children&apos;s Homes &<span className="text-green-600 block">Houseparents</span>
+            </h1>
           </div>
-        ))}
-      </div>
 
-      {/* Right Image Card */}
-      <div className="bg-white p-6 md:p-10 rounded-3xl shadow-xl border border-green-100">
-        <img
-          src="/houseparent-header.jpeg"
-          alt="Children playing in Cambodia countryside"
-          className="w-full h-64 sm:h-80 md:h-96 object-cover rounded-2xl mb-6"
-        />
-        <blockquote className="text-center">
-          <p className="text-lg italic text-gray-700 mb-4">
-            "And now these three remain: faith, hope, and love. But the greatest of these is love."
-          </p>
-          <footer className="text-green-600 font-medium">— 1 Corinthians 13:13</footer>
-        </blockquote>
-      </div>
-    </div>
-
-    {/* Stats Section */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-center">
-      {[
-        { icon: <Home className="w-8 h-8 text-green-600" />, count: homesData.length, label: "Homes" },
-        { icon: <Users className="w-8 h-8 text-green-600" />, count: totalChildren, label: "Children" },
-        { icon: <Building className="w-8 h-8 text-green-600" />, count: totalBuildings, label: "Buildings" },
-      ].map(({ icon, count, label }, i) => (
-        <div
-          key={i}
-          className={`bg-white rounded-2xl shadow-lg p-8 border border-green-100 transform hover:scale-105 transition duration-300 animate-fade-in-up delay-[${i * 100}ms]`}
-        >
-          <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-            {icon}
+          {/* Main Image */}
+          <div className="relative w-full aspect-[16/9] md:aspect-[3/1] rounded-2xl overflow-hidden shadow-2xl mb-12">
+            <Image
+              src="/family.jpg"
+              alt="Children playing in Cambodia countryside"
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
-          <div className="text-4xl font-bold text-gray-900 mb-2">{count}</div>
-          <div className="text-green-600 font-medium">{label}</div>
+
+          {/* Text Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            {[
+              {
+                icon: <MapPin className="w-6 h-6 text-green-600" />,
+                title: "Across Cambodia",
+                text: `Each of our homes is located between one to ten hours drive from Phnom Penh. Along the way, you'll witness breathtaking views of lush rice fields and peaceful countryside life, a reminder of Cambodia's natural beauty and resilience.`,
+              },
+              {
+                icon: <Users className="w-6 h-6 text-green-600" />,
+                title: "Dedicated Houseparents",
+                text: `At the heart of every home are our dedicated houseparents, many of whom are long-time pastors or have been Christians for over five years. They serve not only as caregivers but as spiritual mentors, guiding these children to discover hope, faith, and a future in Christ.`,
+              },
+              {
+                icon: <Heart className="w-6 h-6 text-green-600" />,
+                title: "Unwavering Love",
+                text: `Though these children have endured great loss and hardship, they are surrounded by unwavering love a love that reflects God's grace through the commitment of those who have dedicated their lives to serving Him.`,
+              },
+            ].map(({ icon, title, text }, i) => (
+              <div
+                key={i}
+                className={`bg-white p-6 rounded-2xl shadow-md border border-green-100 animate-slide-in-up delay-${
+                  (i + 1) * 100
+                }`}
+              >
+                <div className="flex items-start space-x-4">
+                  <div className="bg-green-100 p-3 rounded-full flex-shrink-0">{icon}</div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">{text}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Blockquote */}
+          <blockquote className="text-center max-w-3xl mx-auto">
+            <p className="text-lg italic text-gray-700 mb-4">
+              &quot;And now these three remain: faith, hope, and love. But the greatest of these is love.&quot;
+            </p>
+            <footer className="text-green-600 font-medium">— 1 Corinthians 13:13</footer>
+          </blockquote>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
 
+      {/* Stats Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-center">
+            {[
+              { icon: <Home className="w-8 h-8 text-green-600" />, count: homesData.length, label: "Homes" },
+              { icon: <Users className="w-8 h-8 text-green-600" />, count: totalChildren, label: "Children" },
+              { icon: <Building className="w-8 h-8 text-green-600" />, count: totalBuildings, label: "Buildings" },
+            ].map(({ icon, count, label }, i) => (
+              <div
+                key={i}
+                className={`bg-white rounded-2xl shadow-lg p-8 border border-green-100 transform hover:scale-105 transition duration-300 animate-fade-in-up delay-${
+                  (i + 1) * 100
+                }`}
+              >
+                <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                  {icon}
+                </div>
+                <div className="text-4xl font-bold text-gray-900 mb-2">{count}</div>
+                <div className="text-green-600 font-medium">{label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Homes Section */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Our Children's Homes
-            </h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Children&apos;s Homes</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Discover the unique stories and loving communities that make each
-              home special
+              Discover the unique stories and loving communities that make each home special
             </p>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {homesData.map((home, index) => (
               <div
@@ -408,30 +367,26 @@ export default function HomePage() {
                 onClick={() => toggleCard(index)}
               >
                 <div className="relative">
-                  <a
-                    href={home.mapLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img
-                      src={home.image}
+                  <a href={home.mapLink} target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={home.image || "/placeholder.svg"}
                       alt={`${home.name} exterior`}
+                      width={400}
+                      height={192}
                       className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                      style={{ objectFit: "cover" }}
                     />
                   </a>
-
                   <div className="absolute top-4 left-4">
                     <span className="inline-flex items-center rounded-full bg-green-600 px-2.5 py-0.5 text-xs font-medium text-white shadow-lg">
                       <Star className="w-3 h-3 mr-1" />
                       {home.highlight}
                     </span>
                   </div>
-
                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2">
                     <MapPin className="w-4 h-4 text-green-600" />
                   </div>
                 </div>
-
                 <div className="p-6">
                   <div className="pb-3">
                     <h3 className="text-lg font-bold text-gray-900 group-hover:text-green-600 transition-colors mb-2">
@@ -442,7 +397,6 @@ export default function HomePage() {
                       {home.location}
                     </p>
                   </div>
-
                   <div className="pt-0">
                     <div className="flex justify-between items-center mb-4">
                       <div className="flex items-center space-x-4">
@@ -463,37 +417,24 @@ export default function HomePage() {
                         )}
                       </button>
                     </div>
-
                     <div
                       className={`transition-all duration-500 overflow-hidden ${
-                        expandedCard === index
-                          ? "max-h-96 opacity-100"
-                          : "max-h-0 opacity-0"
+                        expandedCard === index ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                       }`}
                     >
                       <div className="border-t border-green-100 pt-4 space-y-4">
                         <span className="inline-flex items-center rounded-full border border-green-200 bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">
                           {home.established}
                         </span>
-                        <p className="text-sm text-gray-700 leading-relaxed">
-                          {home.story}
-                        </p>
+                        <p className="text-sm text-gray-700 leading-relaxed">{home.story}</p>
                         <div className="grid grid-cols-2 gap-3">
                           <div className="bg-green-50 p-3 rounded-lg text-center">
-                            <div className="text-2xl font-bold text-green-600">
-                              {home.children}
-                            </div>
-                            <div className="text-xs text-green-700">
-                              Children
-                            </div>
+                            <div className="text-2xl font-bold text-green-600">{home.children}</div>
+                            <div className="text-xs text-green-700">Children</div>
                           </div>
                           <div className="bg-green-50 p-3 rounded-lg text-center">
-                            <div className="text-2xl font-bold text-green-600">
-                              {home.buildings}
-                            </div>
-                            <div className="text-xs text-green-700">
-                              Buildings
-                            </div>
+                            <div className="text-2xl font-bold text-green-600">{home.buildings}</div>
+                            <div className="text-xs text-green-700">Buildings</div>
                           </div>
                         </div>
                       </div>
@@ -507,33 +448,28 @@ export default function HomePage() {
       </section>
 
       {/* Call to Action */}
-      <section
-  className="py-20 bg-white shadow-lg border-t-2 border-green-600"
->
-  <div className="container mx-auto px-6 text-center">
-    <div className="max-w-3xl mx-auto">
-      <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-        <Heart className="w-10 h-10 text-green-600" />
-      </div>
-      <h3 className="text-4xl font-bold text-green-700 mb-6">
-        Join Us in Making a Difference
-      </h3>
-      <p className="text-xl text-green-600 mb-8 leading-relaxed">
-        Every child deserves love, hope, and a bright future. Your support
-        helps us continue this vital work across Cambodia.
-      </p>
-      <div className="flex flex-col sm:flex-row gap-4 justify-center">
-         <button className="bg-green-600 text-white hover:bg-green-700 shadow-md transform hover:scale-105 transition-all duration-300 px-6 py-3 rounded-lg font-medium">
-          Learn More About Our Mission
-        </button>
-        <button className="border border-green-600 text-green-600 hover:bg-green-600 hover:text-white shadow-md transform hover:scale-105 transition-all duration-300 px-6 py-3 rounded-lg font-medium">
-          Support Our Homes
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
+      <section className="py-20 bg-white shadow-lg border-t-2 border-green-600">
+        <div className="container mx-auto px-6 text-center">
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Heart className="w-10 h-10 text-green-600" />
+            </div>
+            <h3 className="text-4xl font-bold text-green-700 mb-6">Join Us in Making a Difference</h3>
+            <p className="text-xl text-green-600 mb-8 leading-relaxed">
+              Every child deserves love, hope, and a bright future. Your support helps us continue this vital work
+              across Cambodia.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="bg-green-600 text-white hover:bg-green-700 shadow-md transform hover:scale-105 transition-all duration-300 px-6 py-3 rounded-lg font-medium">
+                Learn More About Our Mission
+              </button>
+              <button className="border border-green-600 text-green-600 hover:bg-green-600 hover:text-white shadow-md transform hover:scale-105 transition-all duration-300 px-6 py-3 rounded-lg font-medium">
+                Support Our Homes
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
-  );
+  )
 }

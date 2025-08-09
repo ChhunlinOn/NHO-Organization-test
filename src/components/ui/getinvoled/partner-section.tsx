@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Share2, Users, Heart, UserPlus } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Share2, Users, Heart } from "lucide-react";
 
 export default function PartnerSection() {
   const partnershipWays = [

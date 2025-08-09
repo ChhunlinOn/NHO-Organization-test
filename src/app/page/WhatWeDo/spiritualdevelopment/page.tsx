@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function SpiritualDevelopment() {
   return (
-    <section className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8 space-y-20">
+    <section className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8 space-y-20 mt-10">
       {/* Main Title */}
       <div className="text-center">
         <h1 className="text-4xl font-bold text-[#43A047]">Spiritual Development</h1>
@@ -20,7 +20,7 @@ export default function SpiritualDevelopment() {
             Faith and Leadership in Our Children&#39;s Homes
           </h2>
           <p className="text-lg text-gray-700">
-            In each of our children&#39;s homes, there is a special place for spiritual growth — 
+            In each of our children&#39;s homes, there is a special place for spiritual growth
             a small church led by a house father who has either graduated from Bible school 
             or is deeply mature in spirit. Every Sunday, the children dress neatly and gather 
             with excitement for the weekly church service. It&#39;s a joyful and meaningful time 
@@ -31,7 +31,7 @@ export default function SpiritualDevelopment() {
             roommates gather for devotions, sharing scripture, prayer, and reflection. This 
             nightly practice strengthens not only their individual faith but also their sense 
             of family and unity. On Fridays, the entire church family comes together for a 
-            special evening service — a time to worship, encourage one another, and deepen 
+            special evening service a time to worship, encourage one another, and deepen 
             their connection with God as a community.
           </p>
         </div>
@@ -39,7 +39,7 @@ export default function SpiritualDevelopment() {
         <div className="w-full lg:w-1/2">
           <div className="relative aspect-video w-full rounded-2xl overflow-hidden shadow-2xl">
             <Image
-              src="/spiritual.jpg"
+              src="/2025-05-13 20.26.29.jpg"
               alt="Children Worship Service"
               fill
               className="object-cover"
@@ -54,7 +54,7 @@ export default function SpiritualDevelopment() {
         <div className="w-full lg:w-1/2">
           <div className="relative aspect-video w-full rounded-2xl overflow-hidden shadow-2xl">
             <Image
-              src="/yesproject.jpg"
+              src="/teach.jpg"
               alt="Youth Empowerment Project"
               fill
               className="object-cover"
@@ -69,7 +69,7 @@ export default function SpiritualDevelopment() {
           </h2>
           <p className="text-lg text-gray-700">
             To cultivate young leaders within our homes, we launched the Youth Empowerment 
-            Services (YES Project) — an initiative supported by the Southeast Asia Prayer Center. 
+            Services (YES Project) an initiative supported by the Southeast Asia Prayer Center. 
             This program is designed to inspire growth, leadership, and service, empowering young 
             people to make a lasting impact in their homes and communities.
           </p>
@@ -81,7 +81,7 @@ export default function SpiritualDevelopment() {
           <p className="text-lg text-gray-700">
             Before stepping into leadership, each youth is prepared both mentally and spiritually. 
             We believe that building a strong foundation in faith and character is essential for 
-            their journey ahead — not just as teachers, but as future changemakers.
+            their journey ahead not just as teachers, but as future changemakers.
           </p>
         </div>
       </div>
