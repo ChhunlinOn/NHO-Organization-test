@@ -1,9 +1,20 @@
-"use client"
-import { useState, useEffect } from "react"
-import { MapPin, Users, Building, Heart, ChevronDown, ChevronUp, Home, Star } from "lucide-react"
-import Image from "next/image"
+"use client";
 
-// This data structure shows how your API data should be formatted
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import {
+  Heart,
+  MapPin,
+  Users,
+  Building,
+  Home,
+  Star,
+  ChevronDown,
+  ChevronUp,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+
 const homesData = [
   {
     id: 1,
@@ -213,12 +224,19 @@ const homesData = [
     highlight: "Father&apos;s Love",
     mapLink: "https://maps.app.goo.gl/bo1xT1pKcTtAga6d7",
   },
-]
+];
 
-export default function HouseParentsPage() {
-  // State for managing expanded cards and animations
-  const [expandedCard, setExpandedCard] = useState<number | null>(null)
-  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set())
+export default function HomePage() {
+  const [expandedCard, setExpandedCard] = useState<number | null>(null);
+  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const CARDS_PER_PAGE = 8;
+  const totalPages = Math.ceil(homesData.length / CARDS_PER_PAGE);
+
+  const startIndex = (currentPage - 1) * CARDS_PER_PAGE;
+  const endIndex = startIndex + CARDS_PER_PAGE;
+  const currentPageData = homesData.slice(startIndex, endIndex);
 
   // Animation observer for cards appearing on scroll
   useEffect(() => {
@@ -226,244 +244,409 @@ export default function HouseParentsPage() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const index = Number.parseInt(entry.target.getAttribute("data-index") || "0")
-            setVisibleCards((prev) => new Set([...prev, index]))
+            const index = Number.parseInt(
+              entry.target.getAttribute("data-index") || "0"
+            );
+            setVisibleCards((prev) => new Set([...prev, index]));
           }
-        })
+        });
       },
-      { threshold: 0.1 },
-    )
-    const cards = document.querySelectorAll("[data-index]")
-    cards.forEach((card) => observer.observe(card))
-    return () => observer.disconnect()
-  }, [])
+      { threshold: 0.1 }
+    );
+
+    const cards = document.querySelectorAll("[data-index]");
+    cards.forEach((card) => observer.observe(card));
+
+    return () => observer.disconnect();
+  }, [currentPage]); // Added currentPage dependency to re-observe cards on page change
+
+  useEffect(() => {
+    setVisibleCards(new Set());
+    setExpandedCard(null);
+  }, [currentPage]);
 
   // Toggle card expansion
   const toggleCard = (index: number) => {
-    setExpandedCard(expandedCard === index ? null : index)
-  }
+    setExpandedCard(expandedCard === index ? null : index);
+  };
+
+  const goToPage = (page: number): void => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+      // Scroll to homes section
+      const homesSection = document.querySelector("#homes-section");
+      if (homesSection) {
+        homesSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
+  const goToPreviousPage = (): void => {
+    goToPage(currentPage - 1);
+  };
+
+  const goToNextPage = (): void => {
+    goToPage(currentPage + 1);
+  };
 
   // Calculate totals for statistics
-  const totalChildren = homesData.reduce((sum, home) => sum + home.children, 0)
-  const totalBuildings = homesData.reduce((sum, home) => sum + home.buildings, 0)
+  const totalChildren = homesData.reduce((sum, home) => sum + home.children, 0);
+  const totalBuildings = homesData.reduce(
+    (sum, home) => sum + home.buildings,
+    0
+  );
 
+  /* 
+    TO FETCH FROM API LATER:
+    
+    1. Replace the homesData array above with:
+       const [homesData, setHomesData] = useState<HomeData[]>([])
+    
+    2. Add useEffect to fetch data:
+       useEffect(() => {
+         const fetchHomes = async () => {
+           try {
+             const response = await fetch('/api/homes')
+             const data: HomeData[] = await response.json()
+             setHomesData(data)
+           } catch (error) {
+             console.error('Error fetching homes:', error)
+           }
+         }
+         fetchHomes()
+       }, [])
+    
+    3. Make sure your API returns data in the same format as HomeData interface above
+  */
 
   return (
-    <main className="min-h-screen bg-white mt-10">
+    <main className="min-h-screen bg-white">
+      {/* Space reserved for menu component */}
+      <div className="h-12 sm:h-16 bg-white border-b border-green-100">
+        {/* Your menu component goes here */}
+      </div>
+
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-green-50 via-white to-green-100 py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto mb-12">
-            <div className="inline-flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
-              <Heart className="w-4 h-4 mr-2" />
+      <section className="relative bg-gradient-to-br from-green-50 via-white to-green-100 py-12 sm:py-16 lg:py-20">
+        <div className="w-full px-[10%] sm:px-[15%] lg:px-[13.5%]">
+          <div className="text-center w-full mx-auto">
+            <div className="inline-flex items-center bg-green-100 text-green-800 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-fade-in">
+              <Heart className="w-3 h-2 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
               Homes Across Cambodia
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-8">
-              Children&apos;s Homes &<span className="text-green-600 block">Houseparents</span>
+
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 sm:mb-8 animate-slide-up leading-tight">
+              Children&apos;s Homes &
+              <span className="text-green-600 block">Houseparents</span>
             </h1>
-          </div>
 
-          {/* Main Image */}
-          <div className="relative w-full aspect-[16/9] md:aspect-[3/1] rounded-2xl overflow-hidden shadow-2xl mb-12">
-            <Image
-              src="/family.jpg"
-              alt="Children playing in Cambodia countryside"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
+            <div className="grid xl:grid-cols-2 gap-8 xl:gap-24 items-center mb-8 sm:mb-12 max-w-none mx-auto">
+              
+              <div className="space-y-4 sm:space-y-6 text-left order-1 xl:order-1">
+                <div className="bg-white p-5 sm:p-7 lg:p-8 rounded-2xl shadow-lg border border-green-100 animate-slide-in-left">
+                  <div className="flex items-start space-x-4 sm:space-x-6">
+                    <div className="bg-green-100 p-3 sm:p-4 rounded-full flex-shrink-0">
+                      <MapPin className="w-5 h-5 sm:w-7 sm:h-7 text-green-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-3 text-base sm:text-lg">
+                        Across Cambodia
+                      </h3>
+                      <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+                        Each of our homes is located between one to ten
+                        hours&apos; drive from Phnom Penh. Along the way,
+                        you&apos;ll witness breathtaking views of lush rice
+                        fields and peaceful countryside life, a reminder of
+                        Cambodia&apos;s natural beauty and resilience.
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
-          {/* Text Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            {[
-              {
-                icon: <MapPin className="w-6 h-6 text-green-600" />,
-                title: "Across Cambodia",
-                text: `Each of our homes is located between one to ten hours drive from Phnom Penh. Along the way, you'll witness breathtaking views of lush rice fields and peaceful countryside life, a reminder of Cambodia's natural beauty and resilience.`,
-              },
-              {
-                icon: <Users className="w-6 h-6 text-green-600" />,
-                title: "Dedicated Houseparents",
-                text: `At the heart of every home are our dedicated houseparents, many of whom are long-time pastors or have been Christians for over five years. They serve not only as caregivers but as spiritual mentors, guiding these children to discover hope, faith, and a future in Christ.`,
-              },
-              {
-                icon: <Heart className="w-6 h-6 text-green-600" />,
-                title: "Unwavering Love",
-                text: `Though these children have endured great loss and hardship, they are surrounded by unwavering love a love that reflects God's grace through the commitment of those who have dedicated their lives to serving Him.`,
-              },
-            ].map(({ icon, title, text }, i) => (
-              <div
-                key={i}
-                className={`bg-white p-6 rounded-2xl shadow-md border border-green-100 animate-slide-in-up delay-${
-                  (i + 1) * 100
-                }`}
-              >
-                <div className="flex items-start space-x-4">
-                  <div className="bg-green-100 p-3 rounded-full flex-shrink-0">{icon}</div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
-                    <p className="text-gray-600 text-sm leading-relaxed">{text}</p>
+                <div className="bg-white p-5 sm:p-7 lg:p-8 rounded-2xl shadow-lg border border-green-100 animate-slide-in-left delay-100">
+                  <div className="flex items-start space-x-4 sm:space-x-6">
+                    <div className="bg-green-100 p-3 sm:p-4 rounded-full flex-shrink-0">
+                      <Users className="w-5 h-5 sm:w-7 sm:h-7 text-green-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-3 text-base sm:text-lg">
+                        Dedicated Houseparents
+                      </h3>
+                      <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+                        At the heart of every home are our dedicated
+                        houseparents, many of whom are long-time pastors or have
+                        been Christians for over five years. They serve not only
+                        as caregivers but as spiritual mentors, guiding these
+                        children to discover hope, faith, and a future in
+                        Christ.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white p-5 sm:p-7 lg:p-8 rounded-2xl shadow-lg border border-green-100 animate-slide-in-left delay-200">
+                  <div className="flex items-start space-x-4 sm:space-x-6">
+                    <div className="bg-green-100 p-3 sm:p-4 rounded-full flex-shrink-0">
+                      <Heart className="w-5 h-5 sm:w-7 sm:h-7 text-green-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-3 text-base sm:text-lg">
+                        Unwavering Love
+                      </h3>
+                      <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+                        Though these children have endured great loss and
+                        hardship, they are surrounded by unwavering love—a love
+                        that reflects God&apos;s grace through the commitment of
+                        those who have dedicated their lives to serving Him.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
 
-          {/* Blockquote */}
-          <blockquote className="text-center max-w-3xl mx-auto">
-            <p className="text-lg italic text-gray-700 mb-4">
-              &quot;And now these three remain: faith, hope, and love. But the greatest of these is love.&quot;
-            </p>
-            <footer className="text-green-600 font-medium">— 1 Corinthians 13:13</footer>
-          </blockquote>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-center">
-            {[
-              { icon: <Home className="w-8 h-8 text-green-600" />, count: homesData.length, label: "Homes" },
-              { icon: <Users className="w-8 h-8 text-green-600" />, count: totalChildren, label: "Children" },
-              { icon: <Building className="w-8 h-8 text-green-600" />, count: totalBuildings, label: "Buildings" },
-            ].map(({ icon, count, label }, i) => (
-              <div
-                key={i}
-                className={`bg-white rounded-2xl shadow-lg p-8 border border-green-100 transform hover:scale-105 transition duration-300 animate-fade-in-up delay-${
-                  (i + 1) * 100
-                }`}
-              >
-                <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  {icon}
+         
+              <div className="animate-slide-in-right order-2 xl:order-2">
+                <div className="bg-white p-6 sm:p-8 lg:p-12 rounded-3xl shadow-xl border border-green-100 w-full">
+                  <img
+                    src="/houseparent-header.jpeg"
+                    alt="Children playing in Cambodia countryside"
+                    className="w-full h-64 sm:h-80 lg:h-96 xl:h-[28rem] object-cover rounded-2xl mb-4 sm:mb-6"
+                  />
+                  <blockquote className="text-center">
+                    <p className="text-base sm:text-lg lg:text-xl italic text-gray-700 mb-4 sm:mb-5 leading-relaxed">
+                      &quot;And now these three remain: faith, hope, and love.
+                      But the greatest of these is love.&quot;
+                    </p>
+                    <footer className="text-green-600 font-medium text-base sm:text-lg">
+                      — 1 Corinthians 13:13
+                    </footer>
+                  </blockquote>
                 </div>
-                <div className="text-4xl font-bold text-gray-900 mb-2">{count}</div>
-                <div className="text-green-600 font-medium">{label}</div>
               </div>
-            ))}
+            </div>
+
+            {/* Statistics */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-7xl mx-auto">
+              <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 border border-green-100 transform hover:scale-105 transition-all duration-300 animate-fade-in-up">
+                <div className="bg-green-100 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <Home className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" />
+                </div>
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                  {homesData.length}
+                </div>
+                <div className="text-green-600 font-medium text-sm sm:text-base">
+                  Homes
+                </div>
+              </div>
+              <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 border border-green-100 transform hover:scale-105 transition-all duration-300 animate-fade-in-up delay-100">
+                <div className="bg-green-100 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <Users className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" />
+                </div>
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                  {totalChildren}
+                </div>
+                <div className="text-green-600 font-medium text-sm sm:text-base">
+                  Children
+                </div>
+              </div>
+              <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 border border-green-100 transform hover:scale-105 transition-all duration-300 animate-fade-in-up delay-200">
+                <div className="bg-green-100 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <Building className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" />
+                </div>
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                  {totalBuildings}
+                </div>
+                <div className="text-green-600 font-medium text-sm sm:text-base">
+                  Buildings
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Homes Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Children&apos;s Homes</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Discover the unique stories and loving communities that make each home special
+      <section
+        id="homes-section"
+        className="py-12 sm:py-16 lg:py-20 bg-gray-50"
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+              Our Children&apos;s Homes
+            </h2>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto px-4">
+              Discover the unique stories and loving communities that make each
+              home special
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {homesData.map((home, index) => (
-              <div
-                key={home.id}
-                data-index={index}
-                className={`group cursor-pointer border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white overflow-hidden rounded-lg ${
-                  visibleCards.has(index) ? "animate-slide-in-up" : "opacity-0"
-                }`}
-                style={{ animationDelay: `${index * 100}ms` }}
-                onClick={() => toggleCard(index)}
-              >
-                <div className="relative">
-                  <a href={home.mapLink} target="_blank" rel="noopener noreferrer">
-                    <Image
-                      src={home.image || "/placeholder.svg"}
-                      alt={`${home.name} exterior`}
-                      width={400}
-                      height={192}
-                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                      style={{ objectFit: "cover" }}
-                    />
-                  </a>
-                  <div className="absolute top-4 left-4">
-                    <span className="inline-flex items-center rounded-full bg-green-600 px-2.5 py-0.5 text-xs font-medium text-white shadow-lg">
-                      <Star className="w-3 h-3 mr-1" />
-                      {home.highlight}
-                    </span>
-                  </div>
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2">
-                    <MapPin className="w-4 h-4 text-green-600" />
-                  </div>
-                </div>
-                <div className="p-6">
-                  <div className="pb-3">
-                    <h3 className="text-lg font-bold text-gray-900 group-hover:text-green-600 transition-colors mb-2">
-                      {home.name}
-                    </h3>
-                    <p className="text-sm text-gray-600 flex items-center">
-                      <MapPin className="w-3 h-3 mr-1 text-green-500" />
-                      {home.location}
-                    </p>
-                  </div>
-                  <div className="pt-0">
-                    <div className="flex justify-between items-center mb-4">
-                      <div className="flex items-center space-x-4">
-                        <div className="flex items-center text-sm text-gray-600">
-                          <Users className="w-4 h-4 mr-1 text-green-500" />
-                          {home.children}
-                        </div>
-                        <div className="flex items-center text-sm text-gray-600">
-                          <Building className="w-4 h-4 mr-1 text-green-500" />
-                          {home.buildings}
-                        </div>
-                      </div>
-                      <button className="text-green-600 hover:bg-green-50 p-2 rounded-full transition-colors">
-                        {expandedCard === index ? (
-                          <ChevronUp className="w-4 h-4" />
-                        ) : (
-                          <ChevronDown className="w-4 h-4" />
-                        )}
-                      </button>
+
+          <div className="mx-4 sm:mx-8 md:mx-12 lg:mx-16 xl:mx-24">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-x-8 lg:gap-y-12">
+              {currentPageData.map((home, index) => (
+                <div
+                  key={home.id}
+                  data-index={index}
+                  className={`group cursor-pointer border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white overflow-hidden rounded-lg ${
+                    visibleCards.has(index)
+                      ? "animate-slide-in-up"
+                      : "opacity-0"
+                  }`}
+                  style={{ animationDelay: `${index * 100}ms` }}
+                  onClick={() => toggleCard(index)}
+                >
+                  <div className="relative">
+                    <a
+                      href={home.mapLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Image
+                        src={home.image || "/placeholder.svg"}
+                        alt={`${home.name} exterior`}
+                        width={500}
+                        height={192}
+                        className="w-full h-40 sm:h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                    </a>
+
+                    <div className="absolute top-3 sm:top-4 left-3 sm:left-4">
+                      <span className="inline-flex items-center rounded-full bg-green-600 px-2 py-0.5 sm:px-2.5 sm:py-0.5 text-xs font-medium text-white shadow-lg">
+                        <Star className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-1" />
+                        <span className="hidden sm:inline">
+                          {home.highlight}
+                        </span>
+                        <span className="sm:hidden">
+                          {home.highlight.split(" ")[0]}
+                        </span>
+                      </span>
                     </div>
+
+                    <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-white/90 backdrop-blur-sm rounded-full p-1.5 sm:p-2">
+                      <MapPin className="w-3 h-3 sm:w-4 sm:h-4 text-green-600" />
+                    </div>
+                  </div>
+
+                  <div className="p-4 sm:p-6">
+                    <div className="pb-3">
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 group-hover:text-green-600 transition-colors mb-2 leading-tight">
+                        {home.name}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-gray-600 flex items-center">
+                        <MapPin className="w-3 h-3 mr-1 text-green-500 flex-shrink-0" />
+                        <span className="truncate">{home.location}</span>
+                      </p>
+                    </div>
+
                     <div
                       className={`transition-all duration-500 overflow-hidden ${
-                        expandedCard === index ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                        expandedCard === index
+                          ? "max-h-96 opacity-100"
+                          : "max-h-0 opacity-0"
                       }`}
                     >
-                      <div className="border-t border-green-100 pt-4 space-y-4">
-                        <span className="inline-flex items-center rounded-full border border-green-200 bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">
+                      <div className="border-t border-green-100 pt-4 space-y-3 sm:space-y-4">
+                        <span className="inline-flex items-center rounded-full border border-green-200 bg-green-50 px-2 py-0.5 sm:px-2.5 sm:py-0.5 text-xs font-medium text-green-700">
                           {home.established}
                         </span>
-                        <p className="text-sm text-gray-700 leading-relaxed">{home.story}</p>
-                        <div className="grid grid-cols-2 gap-3">
-                          <div className="bg-green-50 p-3 rounded-lg text-center">
-                            <div className="text-2xl font-bold text-green-600">{home.children}</div>
-                            <div className="text-xs text-green-700">Children</div>
+                        <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                          {home.story}
+                        </p>
+                        <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                          <div className="bg-green-50 p-2 sm:p-3 rounded-lg text-center">
+                            <div className="text-lg sm:text-2xl font-bold text-green-600">
+                              {home.children}
+                            </div>
+                            <div className="text-xs text-green-700">
+                              Children
+                            </div>
                           </div>
-                          <div className="bg-green-50 p-3 rounded-lg text-center">
-                            <div className="text-2xl font-bold text-green-600">{home.buildings}</div>
-                            <div className="text-xs text-green-700">Buildings</div>
+                          <div className="bg-green-50 p-2 sm:p-3 rounded-lg text-center">
+                            <div className="text-lg sm:text-2xl font-bold text-green-600">
+                              {home.buildings}
+                            </div>
+                            <div className="text-xs text-green-700">
+                              Buildings
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+
+          {totalPages > 1 && (
+            <div className="flex flex-col sm:flex-row justify-center items-center mt-8 sm:mt-12 space-y-4 sm:space-y-0 sm:space-x-4">
+              <button
+                onClick={goToPreviousPage}
+                disabled={currentPage === 1}
+                className={`flex items-center px-3 py-2 sm:px-4 sm:py-2 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base ${
+                  currentPage === 1
+                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                    : "bg-white text-green-600 border border-green-600 hover:bg-green-600 hover:text-white shadow-md transform hover:scale-105"
+                }`}
+              >
+                <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                Previous
+              </button>
+
+              <div className="flex space-x-1 sm:space-x-2 overflow-x-auto max-w-xs sm:max-w-none">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (page) => (
+                    <button
+                      key={page}
+                      onClick={() => goToPage(page)}
+                      className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base flex-shrink-0 ${
+                        currentPage === page
+                          ? "bg-green-600 text-white shadow-md"
+                          : "bg-white text-green-600 border border-green-600 hover:bg-green-600 hover:text-white shadow-md transform hover:scale-105"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  )
+                )}
+              </div>
+
+              <button
+                onClick={goToNextPage}
+                disabled={currentPage === totalPages}
+                className={`flex items-center px-3 py-2 sm:px-4 sm:py-2 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base ${
+                  currentPage === totalPages
+                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                    : "bg-white text-green-600 border border-green-600 hover:bg-green-600 hover:text-white shadow-md transform hover:scale-105"
+                }`}
+              >
+                Next
+                <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1" />
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-white shadow-lg border-t-2 border-green-600">
-        <div className="container mx-auto px-6 text-center">
+      <section className="py-12 sm:py-16 lg:py-20 bg-white shadow-lg border-t-2 border-green-600">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 text-center">
           <div className="max-w-3xl mx-auto">
-            <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Heart className="w-10 h-10 text-green-600" />
+            <div className="bg-green-100 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+              <Heart className="w-8 h-8 sm:w-10 sm:h-10 text-green-600" />
             </div>
-            <h3 className="text-4xl font-bold text-green-700 mb-6">Join Us in Making a Difference</h3>
-            <p className="text-xl text-green-600 mb-8 leading-relaxed">
-              Every child deserves love, hope, and a bright future. Your support helps us continue this vital work
-              across Cambodia.
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-green-700 mb-4 sm:mb-6">
+              Join Us in Making a Difference
+            </h3>
+            <p className="text-base sm:text-lg lg:text-xl text-green-600 mb-6 sm:mb-8 leading-relaxed px-4">
+              Every child deserves love, hope, and a bright future. Your support
+              helps us continue this vital work across Cambodia.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-green-600 text-white hover:bg-green-700 shadow-md transform hover:scale-105 transition-all duration-300 px-6 py-3 rounded-lg font-medium">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md sm:max-w-none mx-auto">
+              <button className="bg-green-600 text-white hover:bg-green-700 shadow-md transform hover:scale-105 transition-all duration-300 px-4 py-2.5 sm:px-6 sm:py-3 rounded-lg font-medium text-sm sm:text-base">
                 Learn More About Our Mission
               </button>
-              <button className="border border-green-600 text-green-600 hover:bg-green-600 hover:text-white shadow-md transform hover:scale-105 transition-all duration-300 px-6 py-3 rounded-lg font-medium">
+              <button className="border border-green-600 text-green-600 hover:bg-green-600 hover:text-white shadow-md transform hover:scale-105 transition-all duration-300 px-4 py-2.5 sm:px-6 sm:py-3 rounded-lg font-medium text-sm sm:text-base">
                 Support Our Homes
               </button>
             </div>
@@ -471,5 +654,5 @@ export default function HouseParentsPage() {
         </div>
       </section>
     </main>
-  )
+  );
 }
