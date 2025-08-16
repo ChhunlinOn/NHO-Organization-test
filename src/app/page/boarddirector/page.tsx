@@ -24,7 +24,7 @@ const boardMembers: BoardMember[] = [
     id: 2,
     name: "Mr. Julius George",
     role: "Board Vice-Chairman",
-    image: "/edit.jfif",
+    image: "/edit.jpg",
     description:
       "Strategic advisor bringing decades of leadership experience and passion for children's development.",
   },
