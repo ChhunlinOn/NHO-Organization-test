@@ -4,8 +4,10 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 interface TeamMember {
+  id: number
   name: string
   role: string
   image: string
@@ -13,21 +15,21 @@ interface TeamMember {
 }
 
 const teamData: TeamMember[] = [
-  { name: "George", role: "Co-Founder", image: "/chery.jpeg", category: "founder" },
-  { name: "Cherly", role: "Co-Founder",  image: "/chery.jpeg", category: "founder" },
-  { name: "Y Somalay", role: "Founder",  image: "/chery.jpeg",category: "founder" },
-    { name: "Y Somalay", role: "Founder",  image: "/chery.jpeg", category: "founder" },
+  { id: 1, name: "George", role: "Co-Founder", image: "/chery.jpeg", category: "founder" },
+  { id: 2, name: "Cherly", role: "Co-Founder", image: "/chery.jpeg", category: "founder" },
+  { id: 3, name: "Y Somalay", role: "Founder", image: "/chery.jpeg", category: "founder" },
+  { id: 4, name: "Y Somalay", role: "Founder", image: "/chery.jpeg", category: "founder" },
 
-{ name: "Dr. Sinai Director", role: "Director",  image: "/chery.jpeg", category: "team" },
+  { id: 5, name: "Dr. Sinai Director", role: "Director", image: "/chery.jpeg", category: "team" },
 
-  { name: "Mr. Sor Sokhom", role: "Team Member", image: "/chery.jpeg", category: "team" },
-  { name: "Ms. John Sarah", role: "Team Member",  image: "/chery.jpeg", category: "team" },
-  { name: "Ms. Ouk Phearom", role: "Team Member", image: "/chery.jpeg", category: "team" },
-  { name: "Mr. Im Chanoudom", role: "Team Member",  image: "/chery.jpeg", category: "team" },
-  { name: "Mr. Sen Sophea", role: "Team Member",  image: "/chery.jpeg", category: "team" },
-  { name: "Mr. Chheurn Chhin", role: "Team Member",  image: "/chery.jpeg", category: "team" },
-  { name: "Ms. Pheath Doeun", role: "Team Member", image: "/chery.jpeg", category: "team" },
-  { name: "Mr. Phath Chheurn", role: "Team Member", image: "/chery.jpeg", category: "team" },
+  { id: 6, name: "Mr. Sor Sokhom", role: "Team Member", image: "/chery.jpeg", category: "team" },
+  { id: 7, name: "Ms. John Sarah", role: "Team Member", image: "/chery.jpeg", category: "team" },
+  { id: 8, name: "Ms. Ouk Phearom", role: "Team Member", image: "/chery.jpeg", category: "team" },
+  { id: 9, name: "Mr. Im Chanoudom", role: "Team Member", image: "/chery.jpeg", category: "team" },
+  { id: 10, name: "Mr. Sen Sophea", role: "Team Member", image: "/chery.jpeg", category: "team" },
+  { id: 11, name: "Mr. Chheurn Chhin", role: "Team Member", image: "/chery.jpeg", category: "team" },
+  { id: 12, name: "Ms. Pheath Doeun", role: "Team Member", image: "/chery.jpeg", category: "team" },
+  { id: 13, name: "Mr. Phath Chheurn", role: "Team Member", image: "/chery.jpeg", category: "team" },
 ]
 
 function TeamCard({ member, index }: { member: TeamMember; index: number }) {
@@ -41,7 +43,7 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
     >
       <div className="p-8 text-center relative overflow-hidden">
         <div className="relative overflow-hidden rounded-full w-40 h-40 mx-auto mb-6">
-          <img src={member.image || "/placeholder.svg"} alt={member.name} className="w-full h-full object-cover" />
+          <Image src={member.image || "/placeholder.svg"} alt={member.name} fill className="object-cover" />
         </div>
         <h3 className="font-semibold text-xl text-gray-800 mb-3 group-hover:text-green-700 transition-colors duration-300">
           {member.name}
@@ -78,7 +80,7 @@ function PaginatedSection({ title, members }: { title: string; members: TeamMemb
       <div className="mx-auto" style={{ width: "80%" }}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {currentMembers.map((member, index) => (
-            <TeamCard key={`${member.name}-${currentPage}`} member={member} index={index} />
+            <TeamCard key={member.id} member={member} index={index} />
           ))}
         </div>
 
@@ -136,7 +138,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-white overflow-visible">
-      <main className="container mx-auto px-6 py-32"> {/* Increased top padding */}
+      <main className="container mx-auto px-6 py-32">
         {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -146,7 +148,7 @@ export default function HomePage() {
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-              New Hope Children's Homes
+              New Hope Children&apos;s Homes
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed">
               Meet the People Behind Our Mission
