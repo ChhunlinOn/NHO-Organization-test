@@ -172,7 +172,7 @@ export default function FounderMessage() {
                 Answering God&#39;s Call
               </p>
               <div className="">
-                <p className="mb-2 text-base ">
+                <p>
                   In 1999, God placed a deep calling on my heart to care for
                   vulnerable children. That calling led to the birth of{" "}
                   <span className="text-green-600 font-bold">

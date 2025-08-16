@@ -592,7 +592,7 @@ export default function HomePage() {
                 Previous
               </button>
 
-              <div className="flex space-x-1 sm:space-x-2 overflow-x-auto max-w-xs sm:max-w-none">
+              <div className="flex space-x-1 sm:space-x-2 sm:max-w-none">
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (page) => (
                     <button
