@@ -109,7 +109,7 @@ export default function KidsCampPage() {
             </div>
             <div className="relative">
               <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-                <Image src="/memories.jpg" alt="Kids Camp Activities" fill className="object-cover" />
+                <Image src="/short-term.jpg" alt="Kids Camp Activities" fill className="object-cover" />
               </div>
             </div>
           </div>

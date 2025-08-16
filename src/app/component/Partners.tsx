@@ -74,4 +74,12 @@ const partners = [
     name: "Spero Worldwide",
     logo: "/partner4.jpg",
   },
+  {
+    name: "New Partners",
+    logo: "/partnership.png"
+  },
+  {
+    name: "New Hope Children's Homes",
+    logo: "/partnership1.png"
+  }
 ]
