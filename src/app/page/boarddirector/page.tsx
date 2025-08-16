@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Users, Award, Heart } from "lucide-react";
+import { Users, Award } from "lucide-react";
 
 interface BoardMember {
   id: number;
@@ -105,7 +105,7 @@ export default function BoardDirectors() {
             </h1>
             <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-90 leading-relaxed">
               Dedicated leaders guiding our mission to transform lives and build
-              hope for Cambodia's children
+              hope for Cambodia&#39;s children
             </p>
           </motion.div>
         </div>
