@@ -1,162 +1,167 @@
-"use client"
+"use client";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { Users, Award } from "lucide-react";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { motion } from "framer-motion"
-
-interface TeamMember {
-  name: string
-  role: string
-  image: string
-  category: "founder" | "director" | "team"
+interface BoardMember {
+  id: number;
+  name: string;
+  role: string;
+  image: string;
+  description: string;
 }
 
-const teamData: TeamMember[] = [
-  { name: "George", role: "Co-Founder", image: "/chery.jpeg", category: "founder" },
-  { name: "Cherly", role: "Co-Founder",  image: "/chery.jpeg", category: "founder" },
-  { name: "Y Somalay", role: "Founder",  image: "/chery.jpeg",category: "founder" },
-    { name: "Y Somalay", role: "Founder",  image: "/chery.jpeg", category: "founder" },
+const boardMembers: BoardMember[] = [
+  {
+    id: 1,
+    name: "Mrs. Cheryl Lynn Blalock George",
+    role: "Board Chairperson",
+    image: "/Mrs. Cheryl Lynn Blalock George.jpg",
+    description:
+      "Dedicated leader with extensive experience in nonprofit governance and child welfare advocacy.",
+  },
+  {
+    id: 2,
+    name: "Mr. Julius George",
+    role: "Board Vice-Chairman",
+    image: "/edit.jpg",
+    description:
+      "Strategic advisor bringing decades of leadership experience and passion for children's development.",
+  },
+  {
+    id: 3,
+    name: "Mr. Matthew Geppert",
+    role: "Board Secretary",
+    image: "/Mr. Matthew Geppert.jpg",
+    description:
+      "Committed advocate for orphan care with expertise in organizational development and strategic planning.",
+  },
+  {
+    id: 4,
+    name: "Mrs. Y Somalay",
+    role: "Board Treasurer",
+    image: "/Mrs. Y Somalay.jpg",
+    description:
+      "Financial stewardship expert ensuring transparent and effective resource management for our mission.",
+  },
+];
 
-{ name: "Dr. Sinai Director", role: "Director",  image: "/chery.jpeg",category: "team" },
-
-  { name: "Mr. Sor Sokhom", role: "Team Member", image: "/chery.jpeg", category: "team" },
-  { name: "Ms. John Sarah", role: "Team Member",  image: "/chery.jpeg", category: "team" },
-  { name: "Ms. Ouk Phearom", role: "Team Member", image: "/chery.jpeg", category: "team" },
-  { name: "Mr. Im Chanoudom", role: "Team Member",  image: "/chery.jpeg", category: "team" },
-  { name: "Mr. Sen Sophea", role: "Team Member",  image: "/chery.jpeg", category: "team" },
-  { name: "Mr. Chheurn Chhin", role: "Team Member",  image: "/chery.jpeg", category: "team" },
-  { name: "Ms. Pheath Doeun", role: "Team Member", image: "/chery.jpeg", category: "team" },
-  { name: "Mr. Phath Chheurn", role: "Team Member", image: "/chery.jpeg", category: "team" },
-]
-
-function TeamCard({ member, index }: { member: TeamMember; index: number }) {
+function BoardMemberCard({
+  member,
+  index,
+}: {
+  member: BoardMember;
+  index: number;
+}) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
-      className="group hover:shadow-lg transition-all duration-300 hover:bg-green-50 border border-green-100 rounded-lg bg-white"
+      transition={{ delay: index * 0.2, duration: 0.6 }}
+      className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100"
     >
-      <div className="p-8 text-center relative overflow-hidden">
-        <div className="relative overflow-hidden rounded-full w-40 h-40 mx-auto mb-6">
-          <img src={member.image || "/placeholder.svg"} alt={member.name} className="w-full h-full object-cover" />
-        </div>
-        <h3 className="font-semibold text-xl text-gray-800 mb-3 group-hover:text-green-700 transition-colors duration-300">
+      <div className="relative h-80 overflow-hidden">
+        <Image
+          src={member.image || "/placeholder.svg"}
+          alt={member.name}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      </div>
+      <div className="p-8 text-center">
+        <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-[#43A047] transition-colors duration-300">
           {member.name}
         </h3>
-        <p className="text-green-600 font-medium text-lg group-hover:text-green-800 transition-colors duration-300">
+        <p className="text-[#43A047] font-semibold text-lg mb-4">
           {member.role}
         </p>
+        <p className="text-gray-700 leading-relaxed">{member.description}</p>
       </div>
     </motion.div>
-  )
+  );
 }
 
-function PaginatedSection({ title, members }: { title: string; members: TeamMember[] }) {
-  const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 8
-  const totalPages = Math.ceil(members.length / itemsPerPage)
-  const startIndex = (currentPage - 1) * itemsPerPage
-  const currentMembers = members.slice(startIndex, startIndex + itemsPerPage)
-
-  const goToPage = (page: number) => setCurrentPage(page)
-  const goToPrevious = () => currentPage > 1 && setCurrentPage(currentPage - 1)
-  const goToNext = () => currentPage < totalPages && setCurrentPage(currentPage + 1)
-
+export default function BoardDirectors() {
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className="mb-20"
-    >
-      <h2 className="text-4xl font-bold text-center mb-16 text-green-700">{title}</h2>
-
-      <div className="mx-auto" style={{ width: "80%" }}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {currentMembers.map((member, index) => (
-            <TeamCard key={`${member.name}-${currentPage}`} member={member} index={index} />
-          ))}
-        </div>
-
-        {totalPages > 1 && (
-          <div className="flex justify-center items-center space-x-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={goToPrevious}
-              disabled={currentPage === 1}
-              className="border-green-300 text-green-700 hover:bg-green-50 disabled:opacity-50 bg-transparent"
-            >
-              <ChevronLeft className="w-4 h-4 mr-1" />
-              Previous
-            </Button>
-
-            <div className="flex space-x-2">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <Button
-                  key={page}
-                  variant={currentPage === page ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => goToPage(page)}
-                  className={
-                    currentPage === page
-                      ? "bg-green-600 hover:bg-green-700 text-white"
-                      : "border-green-300 text-green-700 hover:bg-green-50"
-                  }
-                >
-                  {page}
-                </Button>
-              ))}
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-[#43A047] to-[#2E7D32] text-white py-20 mt-10">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <div className="inline-flex items-center bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-6 backdrop-blur-sm">
+              <Award className="w-4 h-4 mr-2" />
+              Leadership & Governance
             </div>
-
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={goToNext}
-              disabled={currentPage === totalPages}
-              className="border-green-300 text-green-700 hover:bg-green-50 disabled:opacity-50 bg-transparent"
-            >
-              Next
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </Button>
-          </div>
-        )}
-      </div>
-    </motion.section>
-  )
-}
-
-export default function HomePage() {
-  const founders = teamData.filter((member) => member.category === "founder")
-  const teamMembers = teamData.filter((member) => member.category === "team")
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-white overflow-visible">
-      <main className="container mx-auto px-6 py-32"> {/* Increased top padding */}
-       
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20"
-        >
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-             New Hope for children's
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Meet the People Behind Our Mission
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              Board of Directors
+            </h1>
+            <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-90 leading-relaxed">
+              Dedicated leaders guiding our mission to transform lives and build
+              hope for Cambodia&#39;s children
             </p>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
+      </section>
 
-        <PaginatedSection title="Our Founders" members={founders} />
-        <PaginatedSection title="Meeting Our Team" members={teamMembers} />
-      </main>
+      {/* Board Members Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center bg-green-100 text-[#43A047] px-4 py-2 rounded-full text-sm font-medium mb-4">
+              <Users className="w-4 h-4 mr-2" />
+              Our Leadership Team
+            </div>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8 mb-16">
+            {boardMembers.map((member, index) => (
+              <BoardMemberCard key={member.id} member={member} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h3 className="text-3xl font-bold text-gray-900 mb-6">
+              Join Us in Making a Difference
+            </h3>
+            <p className="text-xl text-gray-700 mb-8">
+              Support our mission and help us continue providing hope and
+              transformation to children across Cambodia.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="px-8 py-4 bg-[#43A047] text-white font-semibold rounded-full hover:bg-[#388E3C] transform hover:scale-105 transition-all duration-300 shadow-lg">
+                Support Our Mission
+              </button>
+              <button className="px-8 py-4 border-2 border-[#43A047] text-[#43A047] font-semibold rounded-full hover:bg-[#43A047] hover:text-white transition-all duration-300">
+                Learn More About Us
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </div>
-  )
+  );
 }
