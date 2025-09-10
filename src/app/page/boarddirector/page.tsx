@@ -18,7 +18,7 @@ const teamData: TeamMember[] = [
   { name: "Y Somalay", role: "Founder",  image: "/chery.jpeg",category: "founder" },
     { name: "Y Somalay", role: "Founder",  image: "/chery.jpeg", category: "founder" },
 
-{ name: "Dr. Sinai Director", role: "Director",  image: "/chery.jpeg", category: "team" },
+{ name: "Dr. Sinai Director", role: "Director",  image: "/chery.jpeg",category: "team" },
 
   { name: "Mr. Sor Sokhom", role: "Team Member", image: "/chery.jpeg", category: "team" },
   { name: "Ms. John Sarah", role: "Team Member",  image: "/chery.jpeg", category: "team" },
@@ -137,7 +137,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-white overflow-visible">
       <main className="container mx-auto px-6 py-32"> {/* Increased top padding */}
-        {/* Hero Section */}
+       
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -146,7 +146,7 @@ export default function HomePage() {
         >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-              New Hope Children's Homes
+             New Hope for children's
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed">
               Meet the People Behind Our Mission
