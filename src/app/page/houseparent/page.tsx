@@ -9,8 +9,6 @@ import {
   Building,
   Home,
   Star,
-  ChevronDown,
-  ChevronUp,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
@@ -20,7 +18,7 @@ const homesData = [
     id: 1,
     name: "Banteay Meanchey Home", // BC Home
     location: "Khom Chomnom, Mongkol Borey",
-    children: 52,
+    children: 50,
     buildings: 3,
     story:
       "One of our original homes, built on land once owned by Pastor Sinai’s father. His youngest brother, Chamra, now serves as the housefather—loved deeply by the children, who simply call him &quot;Dad.&quot;",
@@ -33,7 +31,7 @@ const homesData = [
     id: 2,
     name: "Oddar Meanchey Home", // OM Home
     location: "Phum Chomkajek, Sangkat Osmach",
-    children: 61,
+    children: 60,
     buildings: 3,
     story:
       "This home began when a pastor, moved with compassion for vulnerable border children, partnered with Pastor Sinai to provide safety and care. It has since grown rapidly, a testimony to God&apos;s faithful provision.",
@@ -46,7 +44,7 @@ const homesData = [
     id: 3,
     name: "Kampong Speu Home", // KS Home
     location: "Phum Ghor, Sangkat Kandaldom",
-    children: 24,
+    children: 20,
     buildings: 3,
     story:
       "Once operating from a church building, this home is now led by the son of the original housemother. Alongside his wife—who herself grew up in this home—they continue a beautiful legacy of love and discipleship.",
@@ -59,7 +57,7 @@ const homesData = [
     id: 4,
     name: "Kampong Thom Home", // KT Home
     location: "Khom Okunthortbong",
-    children: 25,
+    children: 20,
     buildings: 4,
     story:
       "A joyful and loving home where every child is nurtured in a safe and welcoming environment, surrounded by God&apos;s peace and presence.",
@@ -72,7 +70,7 @@ const homesData = [
     id: 5,
     name: "Pursat Home", // PS Home
     location: "Phum Kacherdachbay",
-    children: 32,
+    children: 30,
     buildings: 2,
     story:
       "Many of today&apos;s mission leaders once called this home their own. The houseparents here continue that powerful legacy—raising children with love, purpose, and the truth of God&apos;s Word.",
@@ -85,7 +83,7 @@ const homesData = [
     id: 6,
     name: "Takeo Home", // TK Home
     location: "Phum Kdach",
-    children: 25,
+    children: 20,
     buildings: 3,
     story:
       "Years ago, a faithful couple walked into a local church and saw children in need. God stirred their hearts with a calling they couldn&apos;t ignore. Today, they are lovingly known as &quot;Mom and Dad&quot; to every child they serve.",
@@ -98,7 +96,7 @@ const homesData = [
     id: 7,
     name: "Phnom Penh Student Center", // PP Home
     location: "St. 85BT, Boeng Tumpun",
-    children: 25,
+    children: 20,
     buildings: 6,
     story:
       "More than a student dorm, this center is the heart of our mission—supporting university and vocational students, especially those receiving medical care, while also serving as the headquarters of NHCH.",
@@ -111,7 +109,7 @@ const homesData = [
     id: 8,
     name: "Kampot Home", // KP Home
     location: "Phum Kdach",
-    children: 7,
+    children: 10,
     buildings: 2,
     story:
       "A powerful story of transformation—one of our university graduates has returned, now married with children, and is passionately investing in the next generation of young leaders.",
@@ -124,12 +122,12 @@ const homesData = [
     id: 9,
     name: "Kampong Chhnang Home", // KC Home
     location: "Phum Svay Krom",
-    children: 29,
+    children: 20,
     buildings: 3,
     story:
       "Another inspiring graduate story—this former student, now a parent and leader, has come home to raise up children with the same hope and vision that once transformed their life.",
     established: "Since 2006",
-    image: "/nho.jpg",
+    image: "/Picture9.jpg",
     highlight: "Next Generation",
     mapLink: "https://maps.app.goo.gl/DRzVgR7kpKEV1JXn7",
   },
@@ -137,7 +135,7 @@ const homesData = [
     id: 10,
     name: "Kampong Cham Home", // KM Home
     location: "Phum Sekyom, Prek Chor",
-    children: 51,
+    children: 50,
     buildings: 3,
     story:
       "Tevy and Vandy continue the work of her parents with full hearts. With new buildings rising and fresh hope growing, this home shines as a light of generational faithfulness.",
@@ -150,7 +148,7 @@ const homesData = [
     id: 11,
     name: "Battambang Home 2", // BB2 Home (Girls Only)
     location: "Phum Steungsomrong",
-    children: 18,
+    children: 70,
     buildings: 3,
     story:
       "A beautiful, warm, and secure home created especially for girls. Here, they grow up surrounded by love, encouragement, and the freedom to thrive.",
@@ -163,7 +161,7 @@ const homesData = [
     id: 12,
     name: "Battambang Home 1", // BB1 Home
     location: "Phum Odombong",
-    children: 19,
+    children: 10,
     buildings: 4,
     story:
       "Located in one of Cambodia&apos;s most well-known cities, this home is full of life, laughter, and legacy. A place where children are raised in love and pointed toward Christ.",
@@ -176,7 +174,7 @@ const homesData = [
     id: 13,
     name: "Siem Reap Home", // SR Home
     location: "Phum Krosang",
-    children: 28,
+    children: 20,
     buildings: 3,
     story:
       "A sweet and peaceful home that feels like one big family. Set in nature, complete with a chicken coop, it offers the children a safe and simple life surrounded by God&apos;s creation.",
@@ -202,7 +200,7 @@ const homesData = [
     id: 15,
     name: "Preah Vihear Home", // PVH Home
     location: "Phum Sroemkhangtbong",
-    children: 32,
+    children: 30,
     buildings: 3,
     story:
       "This is a mission-driven home where the houseparents intentionally disciple children to become future leaders—spiritually, academically, and socially.",
@@ -215,7 +213,7 @@ const homesData = [
     id: 16,
     name: "Prey Veng Home", // PV Home
     location: "Phum Prey Ogroun",
-    children: 15,
+    children: 30,
     buildings: 2,
     story:
       "Though still a developing site, this home is full of heart. The land belongs to the houseparents, making the mission even more meaningful. With your support, children here are growing in love and purpose.",
@@ -341,7 +339,6 @@ export default function HomePage() {
             </h1>
 
             <div className="grid xl:grid-cols-2 gap-8 xl:gap-24 items-center mb-8 sm:mb-12 max-w-none mx-auto">
-              
               <div className="space-y-4 sm:space-y-6 text-left order-1 xl:order-1">
                 <div className="bg-white p-5 sm:p-7 lg:p-8 rounded-2xl shadow-lg border border-green-100 animate-slide-in-left">
                   <div className="flex items-start space-x-4 sm:space-x-6">
@@ -404,13 +401,14 @@ export default function HomePage() {
                 </div>
               </div>
 
-         
               <div className="animate-slide-in-right order-2 xl:order-2">
                 <div className="bg-white p-6 sm:p-8 lg:p-12 rounded-3xl shadow-xl border border-green-100 w-full">
-                  <img
+                  <Image
                     src="/houseparent-header.jpeg"
-                    alt="Children playing in Cambodia countryside"
-                    className="w-full h-64 sm:h-80 lg:h-96 xl:h-[28rem] object-cover rounded-2xl mb-4 sm:mb-6"
+                    alt="Houseparent header"
+                    width={1920}
+                    height={1080}
+                    className="w-full h-auto object-cover"
                   />
                   <blockquote className="text-center">
                     <p className="text-base sm:text-lg lg:text-xl italic text-gray-700 mb-4 sm:mb-5 leading-relaxed">
@@ -431,10 +429,10 @@ export default function HomePage() {
                 <div className="bg-green-100 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                   <Home className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" />
                 </div>
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-green-600 mb-2">
                   {homesData.length}
                 </div>
-                <div className="text-green-600 font-medium text-sm sm:text-base">
+                <div className="text-gray-900 font-medium text-sm sm:text-base">
                   Homes
                 </div>
               </div>
@@ -442,21 +440,22 @@ export default function HomePage() {
                 <div className="bg-green-100 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                   <Users className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" />
                 </div>
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-green-600 mb-2">
                   {totalChildren}
+                  <span className="text-green-600">+</span>
                 </div>
-                <div className="text-green-600 font-medium text-sm sm:text-base">
+                <div className="text-gray-900 font-medium text-sm sm:text-base">
                   Children
                 </div>
               </div>
               <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 border border-green-100 transform hover:scale-105 transition-all duration-300 animate-fade-in-up delay-200">
-                <div className="bg-green-100 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                <div className="bg-green-100 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 text-green-600">
                   <Building className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" />
                 </div>
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-green-600 mb-2">
                   {totalBuildings}
                 </div>
-                <div className="text-green-600 font-medium text-sm sm:text-base">
+                <div className=" text-gray-900 font-medium text-sm sm:text-base">
                   Buildings
                 </div>
               </div>
@@ -555,7 +554,7 @@ export default function HomePage() {
                         <div className="grid grid-cols-2 gap-2 sm:gap-3">
                           <div className="bg-green-50 p-2 sm:p-3 rounded-lg text-center">
                             <div className="text-lg sm:text-2xl font-bold text-green-600">
-                              {home.children}
+                              {home.children}+
                             </div>
                             <div className="text-xs text-green-700">
                               Children
@@ -593,7 +592,7 @@ export default function HomePage() {
                 Previous
               </button>
 
-              <div className="flex space-x-1 sm:space-x-2 overflow-x-auto max-w-xs sm:max-w-none">
+              <div className="flex space-x-1 sm:space-x-2 sm:max-w-none">
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (page) => (
                     <button

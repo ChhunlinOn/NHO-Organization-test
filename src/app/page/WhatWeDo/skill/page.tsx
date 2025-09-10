@@ -6,40 +6,47 @@ export default function EducationPrograms() {
   return (
     <div className="bg-gray-50">
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8 mt-10">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#43A047] mb-6">Empowering Futures Through Education</h1>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            We believe every young person deserves the opportunity to thrive whether through academic or practical
-            paths. Our comprehensive education programs provide multiple pathways to success and independence.
-          </p>
-        </div>
+     <section className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8 mt-10">
+  <div className="text-center mb-16">
+    <h1 className="text-4xl md:text-5xl font-bold text-[#43A047] mb-6">Empowering Futures Through Education</h1>
+    <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+      We believe every young person deserves the opportunity to thrive whether through academic or practical
+      paths. Our comprehensive education programs provide multiple pathways to success and independence.
+    </p>
+  </div>
 
-        {/* Stats Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          <div className="bg-white rounded-2xl p-8 shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
-            <div className="w-16 h-16 bg-[#43A047] rounded-full flex items-center justify-center mx-auto mb-4">
-              <GraduationCap className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="text-3xl font-bold text-[#43A047] mb-2">40</h3>
-            <p className="text-gray-600">Students Currently in University</p>
-          </div>
-          <div className="bg-white rounded-2xl p-8 shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
-            <div className="w-16 h-16 bg-[#43A047] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Users className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="text-3xl font-bold text-[#43A047] mb-2">100+</h3>
-            <p className="text-gray-600">University Graduates</p>
-          </div>
-          <div className="bg-white rounded-2xl p-8 shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
-            <div className="w-16 h-16 bg-[#43A047] rounded-full flex items-center justify-center mx-auto mb-4">
-              <BookOpen className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="text-3xl font-bold text-[#43A047] mb-2">Daily</h3>
-            <p className="text-gray-600">Public School Attendance</p>
-          </div>
-        </div>
-      </section>
+  {/* Stats Section */}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+    {/* University Graduates */}
+    <div className="bg-white rounded-2xl p-8 shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+      <div className="w-16 h-16 bg-[#43A047] rounded-full flex items-center justify-center mx-auto mb-4">
+        <GraduationCap className="w-8 h-8 text-white" />
+      </div>
+      <h3 className="text-3xl font-bold text-[#43A047] mb-2">300+</h3>
+      <p className="text-gray-600">Children Graduated from University</p>
+    </div>
+
+    {/* Skills & Vocational Training */}
+    <div className="bg-white rounded-2xl p-8 shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+      <div className="w-16 h-16 bg-[#43A047] rounded-full flex items-center justify-center mx-auto mb-4">
+        <Users className="w-8 h-8 text-white" />
+      </div>
+      <h3 className="text-3xl font-bold text-[#43A047] mb-2">500+</h3>
+      <p className="text-gray-600">Completed Skills & Vocational Training</p>
+    </div>
+
+    {/* Successful Careers & Families */}
+    <div className="bg-white rounded-2xl p-8 shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+      <div className="w-16 h-16 bg-[#43A047] rounded-full flex items-center justify-center mx-auto mb-4">
+        <BookOpen className="w-8 h-8 text-white" />
+      </div>
+      <h3 className="text-3xl font-bold text-[#43A047] mb-2">95%</h3>
+      <p className="text-gray-600">
+        Have Good Jobs & Families of Their Own
+      </p>
+    </div>
+  </div>
+</section>
 
       {/* University Education Section */}
       <section className="bg-white py-16">
@@ -174,7 +181,6 @@ export default function EducationPrograms() {
               <div className="bg-white p-4 rounded-lg">
                 <h4 className="font-semibold text-[#43A047] mb-2">Additional Support:</h4>
                 <ul className="space-y-2 text-gray-700">
-                  <li>• Two dedicated English teachers visit daily</li>
                   <li>• Supplemental classes for extra help</li>
                   <li>• Strong communication skills development</li>
                 </ul>
@@ -203,8 +209,10 @@ export default function EducationPrograms() {
           <div className="bg-[#43A047] text-white p-8 rounded-2xl text-center">
             <h3 className="text-2xl font-bold mb-4">Our Dream: Reaching Full Potential</h3>
             <p className="text-lg opacity-90 max-w-2xl mx-auto">
-              While we are grateful for all we can provide, our dream is to do even more to give every child the
-              resources they need to grow beyond the basics and reach their full potential.
+              We dream of a day when every child we love and disciple will rise with confidence, 
+              their hearts burning for Jesus. We equip their hands with skills, empower their minds with truth, 
+              and send them out with unshakable faith—so they can step into the harvest fields of the world, 
+              bringing light, hope, and the love of Christ to every corner.
             </p>
           </div>
         </div>
