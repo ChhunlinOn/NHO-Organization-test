@@ -1,7 +1,57 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!email) {
+      setMessage("Please enter your email address");
+      return;
+    }
+
+    // Validate email format
+    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      setMessage("Please enter a valid email address");
+      return;
+    }
+
+    setIsLoading(true);
+    setMessage("");
+
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage("✅ Thank you for subscribing to our newsletter!");
+        setEmail("");
+      } else {
+        setMessage(
+          `❌ ${data.error || "Something went wrong. Please try again."}`
+        );
+      }
+    } catch {
+      setMessage("❌ Network error. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <footer className="bg-[#43A047] text-white px-5 lg:px-[220px] py-[40px]">
       <div className="max-w-[1440px] mx-auto">
@@ -110,10 +160,7 @@ export default function Footer() {
               {/* About Us */}
               <div>
                 <h3 className="font-bold mb-4 text-lg">
-                  <Link
-                    href="/spiritual-development"
-                    className="hover:underline"
-                  >
+                  <Link href="/about-us" className="hover:underline">
                     About Us
                   </Link>
                 </h3>
@@ -150,15 +197,39 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="mt-6 w-full max-w-2xl mx-auto flex flex-col sm:flex-row items-center gap-3">
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                className="w-full px-4 py-3 rounded text-black bg-white placeholder:text-gray-500 border-none shadow focus:outline-none focus:shadow-[0_0_0_4px_rgba(59,130,246,0.5)] transition-shadow duration-300"
-              />
-              <button className="w-full sm:w-auto bg-black text-white font-semibold px-6 py-3 rounded hover:bg-opacity-80">
-                Subscribe
-              </button>
+            {/* Newsletter Subscription */}
+            <div className="mt-6">
+              <form
+                onSubmit={handleSubscribe}
+                className="w-full max-w-2xl mx-auto flex flex-col sm:flex-row items-center gap-3"
+              >
+                <input
+                  type="email"
+                  placeholder="Enter your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={isLoading}
+                  className="w-full px-4 py-3 rounded text-black bg-white placeholder:text-gray-500 border-none shadow focus:outline-none focus:shadow-[0_0_0_4px_rgba(59,130,246,0.5)] transition-shadow duration-300 disabled:opacity-50"
+                  required
+                />
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full sm:w-auto bg-black text-white font-semibold px-6 py-3 rounded hover:bg-opacity-80 disabled:opacity-50 transition-colors cursor-pointer"
+                >
+                  {isLoading ? "Subscribing..." : "Subscribe"}
+                </button>
+              </form>
+
+              {message && (
+                <p
+                  className={`mt-3 text-center text-sm font-medium ${
+                    message.includes("✅") ? "text-green-300" : "text-red-300"
+                  }`}
+                >
+                  {message}
+                </p>
+              )}
             </div>
           </div>
         </div>

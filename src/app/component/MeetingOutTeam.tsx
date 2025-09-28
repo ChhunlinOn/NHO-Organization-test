@@ -1,82 +1,86 @@
+"use client";
+
 import Image from "next/image";
 import { Heart, Star } from "lucide-react";
+import { useState, useEffect } from "react";
 
-// Team data based on your provided information
-const teamData = [
-  {
-    id: 1,
-    name: "Dr. Phoeuk Sinai and his family",
-    role: "Director and Founder",
-    description:
-      "Visionary leader who founded New Hope Children's Homes with his family, dedicated to transforming lives through Christ's love.",
-    image: "/Dr. Phoeuk Sinai and his family.jpg",
-    isFounder: true,
-  },
-  {
-    id: 2,
-    name: "Mr. Chhin Chhoeurn",
-    role: "Sponsorship Program Coordinator",
-    description:
-      "Coordinates sponsorship programs, connecting generous hearts with children in need of support and care.",
-    image: "/Mr. Chhin Chhoeurn.jpg",
-  },
-  {
-    id: 3,
-    name: "Mr. Sor Sokhom",
-    role: "Deputy Director",
-    description:
-      "Supports organizational leadership and ensures smooth operations across all children's homes.",
-    image: "/Mr. Sor Sokhom.jpg",
-  },
-  {
-    id: 4,
-    name: "Ms. John Sarah",
-    role: "Accountant",
-    description:
-      "Manages financial operations with integrity, ensuring resources are used effectively for the children's benefit.",
-    image: "/Ms. John Sarah.jpg",
-  },
-  {
-    id: 5,
-    name: "Ms. Ouk Phearom",
-    role: "Assistant Accountant",
-    description:
-      "Supports financial management and maintains accurate records for transparent operations.",
-    image: "/Ms. Ouk Phearom.jpg",
-  },
-  {
-    id: 6,
-    name: "Ms. Phat Doeurn (Jen)",
-    role: "Communicator and Program Developer",
-    description:
-      "Develops programs and manages communications, sharing our mission and impact with the world.",
-    image: "/Ms. Phat Doeurn( Jen).jpg",
-  },
-  {
-    id: 7,
-    name: "Mr. Sen Sophea",
-    role: "Educational Manager and Housemaster",
-    description:
-      "Oversees educational programs and serves as housemaster, nurturing both academic and personal growth.",
-    image: "/Mr. Sen Sophea.jpg",
-  },
-  {
-    id: 8,
-    name: "Mr. Im Chanoudom",
-    role: "Team Leader and Manager",
-    description:
-      "Provides leadership and management support, ensuring effective coordination across all programs.",
-    image: "/Mr. Im Chanoudom.jpg",
-  },
-];
+interface TeamMember {
+  id: number;
+  name: string;
+  role: string;
+  description: string;
+  image: string;
+  isFounder: boolean;
+  displayOrder: number;
+}
 
-export default function MeetOurTeam() {
+export default function OurTeam() {
+  const [teamData, setTeamData] = useState<TeamMember[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchTeamData = async () => {
+      try {
+        const response = await fetch("/api/team/public");
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch team data");
+        }
+
+        const data = await response.json();
+        setTeamData(data.team || []);
+      } catch (err) {
+        setError("Error fetching team data");
+        console.error("Error fetching team data:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTeamData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-green-600 mx-auto"></div>
+          <p className="mt-4 text-lg text-gray-600">
+            Loading team information...
+          </p>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-red-600 text-lg">Error: {error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-4 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+          >
+            Retry
+          </button>
+        </div>
+      </section>
+    );
+  }
+
+  const founder = teamData.find((member) => member.isFounder);
+  const otherMembers = teamData
+    .filter((member) => !member.isFounder)
+    .sort((a, b) => a.displayOrder - b.displayOrder);
+
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-[#43A047] mb-4">
-            Meet Our Team
+            Our Team
           </h2>
           <p className="text-xl text-gray-700 max-w-2xl mx-auto">
             Dedicated individuals working together to transform lives and build
@@ -85,39 +89,41 @@ export default function MeetOurTeam() {
         </div>
 
         {/* Founder Spotlight */}
-        <div className="mb-16">
-          <div className="bg-gradient-to-br from-green-100 to-emerald-100 text-[#43A047] rounded-2xl p-8">
-            <div className="flex flex-col lg:flex-row items-center gap-8">
-              <div className="relative">
-                <div className="w-48 h-48 rounded-full overflow-hidden shadow-2xl border-2 border-[#4eb753]">
-                  <Image
-                    src={teamData[0].image || "/placeholder.svg"}
-                    alt={teamData[0].name}
-                    width={192}
-                    height={192}
-                    className="w-full h-full object-cover"
-                  />
+        {founder && (
+          <div className="mb-16">
+            <div className="bg-gradient-to-br from-green-100 to-emerald-100 text-[#43A047] rounded-2xl p-8">
+              <div className="flex flex-col lg:flex-row items-center gap-8">
+                <div className="relative">
+                  <div className="w-48 h-48 rounded-full overflow-hidden shadow-2xl border-2 border-[#4eb753]">
+                    <Image
+                      src={founder.image || "/placeholder.svg"}
+                      alt={founder.name}
+                      width={192}
+                      height={192}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="absolute -top-2 -right-2 bg-yellow-400 rounded-full p-2 shadow-lg">
+                    <Star className="w-6 h-6 text-yellow-800" />
+                  </div>
                 </div>
-                <div className="absolute -top-2 -right-2 bg-yellow-400 rounded-full p-2 shadow-lg">
-                  <Star className="w-6 h-6 text-yellow-800" />
+                <div className="flex-1 text-center lg:text-left">
+                  <h3 className="text-3xl font-bold mb-2">{founder.name}</h3>
+                  <p className="text-xl font-semibold mb-4 text-green-100">
+                    {founder.role}
+                  </p>
+                  <p className="text-lg leading-relaxed opacity-90">
+                    {founder.description}
+                  </p>
                 </div>
-              </div>
-              <div className="flex-1 text-center lg:text-left">
-                <h3 className="text-3xl font-bold mb-2">{teamData[0].name}</h3>
-                <p className="text-xl font-semibold mb-4 text-green-100">
-                  {teamData[0].role}
-                </p>
-                <p className="text-lg leading-relaxed opacity-90">
-                  {teamData[0].description}
-                </p>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Team Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {teamData.slice(1).map((member, index) => (
+          {otherMembers.map((member, index) => (
             <div
               key={member.id}
               className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
@@ -146,6 +152,16 @@ export default function MeetOurTeam() {
             </div>
           ))}
         </div>
+
+        {/* Empty State */}
+        {teamData.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-600 text-lg">No team members found.</p>
+            <p className="text-gray-500 mt-2">
+              Team information will be available soon.
+            </p>
+          </div>
+        )}
 
         {/* Call to Action */}
         <div className="mt-16 text-center">
