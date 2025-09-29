@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-// GET all public team members (no authentication required)
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
@@ -9,15 +8,12 @@ export async function GET(req: Request) {
     const limit = parseInt(searchParams.get('limit') || '12');
     const skip = (page - 1) * limit;
 
-    // Get total count for pagination info
     const totalCount = await prisma.teamMember.count({
       where: { isActive: true }
     });
 
-    // Calculate total pages
     const totalPages = Math.ceil(totalCount / limit);
 
-    // Get paginated team members
     const team = await prisma.teamMember.findMany({
       where: { isActive: true },
       orderBy: [

@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
-// Token verification function
 function verifyToken(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
   if (!authHeader) return null;
@@ -17,10 +16,8 @@ function verifyToken(request: NextRequest) {
   }
 }
 
-// GET all subscribers (protected - admin/editor only)
 export async function GET(request: NextRequest) {
   try {
-    // Verify authentication
     const payload = verifyToken(request);
     if (!payload) {
       return NextResponse.json(
@@ -29,7 +26,6 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Check if user has admin or editor role
     if (payload.role !== 'admin' && payload.role !== 'editor') {
       return NextResponse.json(
         { success: false, error: 'Access denied. Admin or editor role required.' },
@@ -45,7 +41,7 @@ export async function GET(request: NextRequest) {
     const [subscribers, totalCount] = await Promise.all([
       prisma.newsletterSubscriber.findMany({
         where: { isActive: true },
-        orderBy: { created_at: 'desc' }, // Fixed: changed from createdAt to created_at
+        orderBy: { created_at: 'desc' }, 
         skip,
         take: limit,
       }),
@@ -76,12 +72,10 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST new subscriber (public - no authentication required)
 export async function POST(request: NextRequest) {
   try {
     const { email } = await request.json();
 
-    // Validate email
     if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
       return NextResponse.json(
         { success: false, error: 'Valid email address is required' },
@@ -89,7 +83,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if email already exists and is active
     const existingSubscriber = await prisma.newsletterSubscriber.findUnique({
       where: { email }
     });
@@ -101,7 +94,6 @@ export async function POST(request: NextRequest) {
           { status: 409 }
         );
       } else {
-        // Reactivate previously unsubscribed email
         const reactivatedSubscriber = await prisma.newsletterSubscriber.update({
           where: { email },
           data: { isActive: true }
@@ -115,7 +107,6 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Create new subscriber
     const newSubscriber = await prisma.newsletterSubscriber.create({
       data: { email }
     });

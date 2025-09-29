@@ -1,10 +1,7 @@
 import "../../globals.css";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "New Hope Children's Homes",
+  title: "New Hope Children's Homes - Board of Directors",
   description: "Meet the people behind our mission",
 };
 
@@ -13,5 +10,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className={inter.className}>{children}</div>;
+  return <div>{children}</div>;
 }

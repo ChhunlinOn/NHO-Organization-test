@@ -28,13 +28,10 @@ export default function AdminLogin() {
       const data = await response.json();
 
       if (response.ok) {
-        // Check if user has admin or editor role
         if (data.user.role === "admin" || data.user.role === "editor") {
           localStorage.setItem("token", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
-          // router.push("/admin/dashboard");
 
-          // Use window.location for more reliable redirection
           window.location.href = "/admin/dashboard";
         } else {
           setError("Access denied. Only administrators and editors can login.");

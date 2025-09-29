@@ -56,7 +56,6 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    // FIX: Await the params first
     const { id } = await params;
     
     const payload = verifyToken(request);
@@ -70,7 +69,6 @@ export async function PUT(
     const body = await request.json();
     const { name, role, description, image, imagePublicId, isFounder, displayOrder, isActive } = body;
 
-    // Check if team member exists
     const existingMember = await prisma.teamMember.findUnique({
       where: { id: Number(id) },
     });
@@ -111,7 +109,6 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    // FIX: Await the params first
     const { id } = await params;
     
     const payload = verifyToken(request);
@@ -122,7 +119,6 @@ export async function DELETE(
       return NextResponse.json({ error: "Forbidden: only admins or editors can delete team members" }, { status: 403 });
     }
 
-    // Check if team member exists
     const teamMember = await prisma.teamMember.findUnique({
       where: { id: Number(id) },
     });
@@ -131,17 +127,14 @@ export async function DELETE(
       return NextResponse.json({ error: "Team member not found" }, { status: 404 });
     }
 
-    // Delete image from Cloudinary if publicId exists
     if (teamMember.imagePublicId) {
       try {
         await cloudinary.uploader.destroy(teamMember.imagePublicId);
       } catch (cloudinaryError) {
         console.error('Cloudinary deletion error:', cloudinaryError);
-        // Continue with database deletion even if image deletion fails
       }
     }
 
-    // Soft delete by setting isActive to false
     await prisma.teamMember.update({
       where: { id: Number(id) },
       data: { isActive: false },

@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-// GET all public news (no authentication required)
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
@@ -9,13 +8,10 @@ export async function GET(req: Request) {
     const limit = parseInt(searchParams.get('limit') || '6');
     const skip = (page - 1) * limit;
 
-    // Get total count for pagination info
     const totalCount = await prisma.news.count();
 
-    // Calculate total pages
     const totalPages = Math.ceil(totalCount / limit);
 
-    // Get paginated news
     const news = await prisma.news.findMany({
       orderBy: { created_at: 'desc' },
       skip: skip,
