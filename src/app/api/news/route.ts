@@ -27,7 +27,6 @@ export async function GET(req: Request) {
   const limit = searchParams.get('limit');
   const all = searchParams.get('all');
 
-  // If ?all=true is provided, return all news without pagination
   if (all === 'true') {
     const news = await prisma.news.findMany({
       orderBy: { created_at: 'desc' }
@@ -39,7 +38,6 @@ export async function GET(req: Request) {
     });
   }
 
-  // Default paginated response
   const pageNum = parseInt(page || '1');
   const limitNum = parseInt(limit || '6');
   const skip = (pageNum - 1) * limitNum;

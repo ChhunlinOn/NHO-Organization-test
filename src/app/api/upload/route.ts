@@ -32,14 +32,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
-    // Convert file to buffer
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Convert buffer to base64
     const base64String = `data:${file.type};base64,${buffer.toString('base64')}`;
 
-    // Upload to Cloudinary
     const result = await cloudinary.uploader.upload(base64String, {
       folder: 'nho-news',
       resource_type: 'image'
@@ -60,7 +57,6 @@ export async function POST(req: Request) {
   }
 }
 
-// Optional: Delete image endpoint
 export async function DELETE(req: Request) {
   const payload = verifyToken(req);
   if (!payload) {

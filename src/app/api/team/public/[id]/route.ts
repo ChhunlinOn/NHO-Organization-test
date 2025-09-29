@@ -1,13 +1,11 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-// GET single public team member by ID (no authentication required)
 export async function GET(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    // FIX: Await the params first
     const { id } = await params;
     
     const teamMember = await prisma.teamMember.findUnique({

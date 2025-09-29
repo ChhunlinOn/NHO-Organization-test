@@ -16,7 +16,6 @@ function verifyToken(req: Request) {
   }
 }
 
-// Update the params type to use Promise
 export async function GET(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -75,7 +74,6 @@ export async function DELETE(
   }
 
   try {
-    // First get the news to access imagePublicId
     const news = await prisma.news.findUnique({
       where: { id: Number(resolvedParams.id) },
     });
@@ -84,17 +82,14 @@ export async function DELETE(
       return NextResponse.json({ error: "News not found" }, { status: 404 });
     }
 
-    // Delete image from Cloudinary if publicId exists
     if (news.imagePublicId) {
       try {
         await cloudinary.uploader.destroy(news.imagePublicId);
       } catch (cloudinaryError) {
         console.error('Cloudinary deletion error:', cloudinaryError);
-        // Continue with database deletion even if image deletion fails
       }
     }
 
-    // Delete from database
     await prisma.news.delete({
       where: { id: Number(resolvedParams.id) },
     });

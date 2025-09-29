@@ -20,7 +20,6 @@ export async function DELETE(
       );
     }
 
-    // Soft delete by setting isActive to false
     await prisma.newsletterSubscriber.update({
       where: { email: decodedEmail },
       data: { isActive: false }

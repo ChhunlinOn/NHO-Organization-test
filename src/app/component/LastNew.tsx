@@ -1,52 +1,52 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import Image from "next/image"
-import { CalendarDays, ArrowRight } from "lucide-react"
-import { useState, useEffect } from "react"
+import Link from "next/link";
+import Image from "next/image";
+import { CalendarDays, ArrowRight } from "lucide-react";
+import { useState, useEffect } from "react";
 
 interface News {
-  id: number
-  image: string
-  title: string
-  text: string
-  date: string
-  category: string
-  excerpt: string
-  created_at: string
-  updated_at: string
+  id: number;
+  image: string;
+  title: string;
+  text: string;
+  date: string;
+  category: string;
+  excerpt: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export default function LatestNews() {
-  const [newsData, setNewsData] = useState<News[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [newsData, setNewsData] = useState<News[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   // Fetch latest news from API
   const fetchLatestNews = async () => {
     try {
-      setIsLoading(true)
-      setError(null)
-      
-      const response = await fetch('/api/news/public?limit=4')
-      
+      setIsLoading(true);
+      setError(null);
+
+      const response = await fetch("/api/news/public?limit=4");
+
       if (!response.ok) {
-        throw new Error('Failed to fetch news')
+        throw new Error("Failed to fetch news");
       }
-      
-      const data = await response.json()
-      setNewsData(data.news || [])
+
+      const data = await response.json();
+      setNewsData(data.news || []);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred')
-      console.error('Error fetching news:', err)
+      setError(err instanceof Error ? err.message : "An error occurred");
+      console.error("No data fetching news:", err);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchLatestNews()
-  }, [])
+    fetchLatestNews();
+  }, []);
 
   // Show loading state
   if (isLoading) {
@@ -54,14 +54,19 @@ export default function LatestNews() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#43A047] mb-4">Latest News & Updates</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#43A047] mb-4">
+              Latest News & Updates
+            </h2>
             <p className="text-xl text-gray-700 max-w-2xl mx-auto">
               Loading latest news...
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[1, 2, 3].map((item) => (
-              <div key={item} className="bg-white rounded-xl overflow-hidden shadow-lg animate-pulse">
+              <div
+                key={item}
+                className="bg-white rounded-xl overflow-hidden shadow-lg animate-pulse"
+              >
                 <div className="h-56 bg-gray-200"></div>
                 <div className="p-6">
                   <div className="h-4 bg-gray-200 rounded w-1/3 mb-3"></div>
@@ -74,7 +79,7 @@ export default function LatestNews() {
           </div>
         </div>
       </section>
-    )
+    );
   }
 
   // Show error state
@@ -82,7 +87,9 @@ export default function LatestNews() {
     return (
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#43A047] mb-4">Latest News & Updates</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-[#43A047] mb-4">
+            Latest News & Updates
+          </h2>
           <p className="text-xl text-gray-700 mb-6">Error loading news</p>
           <button
             onClick={fetchLatestNews}
@@ -92,7 +99,7 @@ export default function LatestNews() {
           </button>
         </div>
       </section>
-    )
+    );
   }
 
   // Show empty state
@@ -100,20 +107,27 @@ export default function LatestNews() {
     return (
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#43A047] mb-4">Latest News & Updates</h2>
-          <p className="text-xl text-gray-700">No news articles yet. Check back later!</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-[#43A047] mb-4">
+            Latest News & Updates
+          </h2>
+          <p className="text-xl text-gray-700">
+            No news articles yet. Check back later!
+          </p>
         </div>
       </section>
-    )
+    );
   }
 
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#43A047] mb-4">Latest News & Updates</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-[#43A047] mb-4">
+            Latest News & Updates
+          </h2>
           <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-            Stay informed about our impactful work and the lives being transformed in Cambodia.
+            Stay informed about our impactful work and the lives being
+            transformed in Cambodia.
           </p>
         </div>
 
@@ -143,7 +157,9 @@ export default function LatestNews() {
                 <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight hover:text-[#43A047] transition-colors duration-200">
                   <Link href={`/news/${article.id}`}>{article.title}</Link>
                 </h3>
-                <p className="text-gray-700 text-base mb-4 line-clamp-3">{article.excerpt}</p>
+                <p className="text-gray-700 text-base mb-4 line-clamp-3">
+                  {article.excerpt}
+                </p>
                 <Link
                   href={`/page/new/${article.id}`}
                   className="inline-flex items-center text-[#43A047] font-semibold hover:underline transition-colors duration-200"
@@ -167,5 +183,5 @@ export default function LatestNews() {
         </div>
       </div>
     </section>
-  )
+  );
 }

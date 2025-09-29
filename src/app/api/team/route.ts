@@ -26,7 +26,6 @@ export async function GET(req: Request) {
   const limit = searchParams.get('limit');
   const all = searchParams.get('all');
 
-  // If ?all=true is provided, return all team members without pagination
   if (all === 'true') {
     const team = await prisma.teamMember.findMany({
       where: { isActive: true },
@@ -43,7 +42,6 @@ export async function GET(req: Request) {
     });
   }
 
-  // Default paginated response
   const pageNum = parseInt(page || '1');
   const limitNum = parseInt(limit || '6');
   const skip = (pageNum - 1) * limitNum;
@@ -88,7 +86,6 @@ export async function POST(req: Request) {
 
   const { image, imagePublicId, name, role, description, isFounder, displayOrder } = await req.json();
 
-  // Validate required fields
   if (!name || !role || !description || !image) {
     return NextResponse.json(
       { error: "Name, role, description, and image are required" },

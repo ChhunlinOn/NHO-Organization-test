@@ -110,27 +110,27 @@ export default function FounderMessage() {
                 </p>
                 {expandedSections.section1 && (
                   <div className="text-base">
-                    <p className="mt-[12px]">
+                    <span className="mt-[12px]">
                       Another challenge is the lack of education on family
                       planning. Many Cambodians marry young and struggle to
                       support their children financially and emotionally. Some
                       parents, overwhelmed by their circumstances, abandon their
                       newborns at hospitals or pagodas.
-                    </p>
-                    <p className="mt-[12px]">
+                    </span>
+                    <span className="mt-[12px]">
                       Others, suffering from terminal illnesses such as HIV,
                       cancer, or heart disease, pass away, leaving their
                       children vulnerable to child labor, human trafficking, and
                       other forms of exploitation.
-                    </p>
+                    </span>
 
-                    <p className="mt-[12px]">
+                    <span className="mt-[12px]">
                       Cambodia still bears the scars of past wars. Landmines
                       left behind continue to injure and kill innocent people,
                       further deepening the struggles of already vulnerable
                       communities. These children are in desperate need of help,
                       love, and hope for a better future.
-                    </p>
+                    </span>
                   </div>
                 )}
               </div>
@@ -172,33 +172,33 @@ export default function FounderMessage() {
                 Answering God&#39;s Call
               </p>
               <div className="">
-                <p>
+                <span>
                   In 1999, God placed a deep calling on my heart to care for
                   vulnerable children. That calling led to the birth of{" "}
                   <span className="text-green-600 font-bold">
                     {" "}
                     New Hope of Orphans{" "}
                   </span>
-                  —a place where children could find not just shelter, but love,
-                  hope, and the life-changing message of Christ.
-                  <p className="mt-[12px]">
+                  a place where children could find not just shelter, but love,
+                  hope, and the life changing message of Christ.
+                  <span className="mt-[12px]">
                     No matter how broken their past, every child who walks
-                    through our doors discovers that they have a future—one
+                    through our doors discovers that they have a future one
                     filled with purpose, faith, and the assurance that God cares
                     for them.
-                  </p>
-                </p>
+                  </span>
+                </span>
                 {expandedSections.section2 && (
-                  <p className="mb-2 text-base">
+                  <span className="mb-2 text-base">
                     Today, we are known as
                     <span className="text-green-600 font-bold">
                       {" "}
                       New Hope Children&#39;s Homes{" "}
                     </span>
-                    ,because we believe these children are no longer
-                    orphans—they have a Heavenly Father who loves them and calls
-                    them His own.
-                    <p className="mt-[12px]">
+                    ,because we believe these children are no longer orphans
+                    they have a Heavenly Father who loves them and calls them
+                    His own.
+                    <span className="mt-[12px]">
                       By God&#39;s grace, we now care for approximately <br />
                       <span className="text-green-600 font-bold">
                         {" "}
@@ -211,15 +211,15 @@ export default function FounderMessage() {
                       </span>
                       into loving homes, with at least one children&#39;s home
                       in every province of Cambodia.
-                    </p>
-                    <p className="mt-[12px]">
+                    </span>
+                    <span className="mt-[12px]">
                       However, financial constraints slow our progress. Still,
                       our hearts remain steadfast in this mission, trusting that
                       God will provide the means to see this vision fulfilled.
                       Every child deserves to know they are loved, valued, and
                       never forgotten.
-                    </p>
-                  </p>
+                    </span>
+                  </span>
                 )}
               </div>
 
@@ -256,17 +256,17 @@ export default function FounderMessage() {
               </div>
             </div>
             <div className="w-full md:w-1/2 leading-relaxed">
-              <p className="text-xl font-bold mb-4 text-[#43A047]">
+              <span className="text-xl font-bold mb-4 text-[#43A047]">
                 How You Can Help
-              </p>
+              </span>
 
               <div className="mb-2 text-base">
-                <p>
+                <span>
                   At New Hope Children&#39;s Homes, we believe every child
                   deserves a safe place to belong, a future filled with hope,
                   and the joy of knowing they are loved by God. But we cannot do
-                  this alone—we need you.
-                </p>
+                  this alone we need you.
+                </span>
                 {expandedSections.section3 && (
                   <div className="mb-2 text-base">
                     <p className="mt-[12px]">
@@ -279,7 +279,7 @@ export default function FounderMessage() {
                     <p className="mt-[12px]">
                       If God has placed this mission on your heart, we would be
                       honored to partner with you. Every gift, no matter the
-                      size, is a seed of hope—changing lives and shaping
+                      size, is a seed of hope changing lives and shaping
                       futures.
                     </p>
                     <p className="mt-[12px]">

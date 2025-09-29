@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:8tlDkJJNw4bw9o7rihbsvBV4SBDH3Jl97FUueuklMQzH5DbKUA4FWMRjstf8Tk2H@173.249.36.213:5432/postgres
+      - CLOUDINARY_CLOUD_NAME=dn4qzttzn
+      - CLOUDINARY_API_KEY=411393464548883
+      - CLOUDINARY_API_SECRET=mw5Wggz7dDdmz8u8rWQFg3BjYIQ
+      - JWT_SECRET=62545a8b035aa7c00b29a7799244fc99bdfe16182fe652e55876f62b14768343
+    restart: unless-stopped
