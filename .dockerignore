@@ -9,3 +9,5 @@ README.md
 .next
 Dockerfile
 .dockerignore
+docker-compose.yml
+docker-compose.prod.yml
