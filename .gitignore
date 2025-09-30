@@ -128,3 +128,7 @@ jspm_packages/
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+# Docker
+.dockerignore
+docker-compose.yml
+docker-compose.prod.yml
