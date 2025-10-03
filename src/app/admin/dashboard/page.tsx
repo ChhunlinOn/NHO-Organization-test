@@ -15,6 +15,7 @@ import {
   House,
   MailPlus,
   Copy,
+  Video,
 } from "lucide-react";
 
 interface News {
@@ -57,13 +58,23 @@ interface NewsletterSubscriber {
   created_at: string;
 }
 
-type ActiveSection = "news" | "users" | "our-family" | "mail-subscribe";
+interface ShortVideo {
+  id: number;
+  title: string;
+  video: string | null;
+  videoPublicId: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+type ActiveSection = "news" | "users" | "our-family" | "mail-subscribe" | "short-videos";
 
 export default function AdminDashboard() {
   const [news, setNews] = useState<News[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [subscribers, setSubscribers] = useState<NewsletterSubscriber[]>([]);
+  const [shortVideos, setShortVideos] = useState<ShortVideo[]>([]);
   const [activeSection, setActiveSection] = useState<ActiveSection>("news");
   const [isLoading, setIsLoading] = useState(true);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -95,6 +106,12 @@ export default function AdminDashboard() {
       id: "mail-subscribe" as ActiveSection,
       name: "Mail Subscribe",
       icon: MailPlus,
+      allowedRoles: ["admin", "editor"],
+    },
+    {
+      id: "short-videos" as ActiveSection,
+      name: "Short Videos",
+      icon: Video,
       allowedRoles: ["admin", "editor"],
     },
   ];
@@ -154,6 +171,14 @@ export default function AdminDashboard() {
       if (subscribersResponse.ok) {
         const subscribersData = await subscribersResponse.json();
         setSubscribers(subscribersData.subscribers || []);
+      }
+
+      const shortVideosResponse = await fetch("/api/short-videos?all=true", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (shortVideosResponse.ok) {
+        const shortVideosData = await shortVideosResponse.json();
+        setShortVideos(shortVideosData.shortVideos || []);
       }
 
       if (currentUser?.role === "admin") {
@@ -297,6 +322,29 @@ export default function AdminDashboard() {
     } catch (error) {
       console.error("Error deleting subscriber:", error);
       alert("Error deleting subscriber. Check console for details.");
+    }
+  };
+
+  const handleDeleteShortVideo = async (id: number) => {
+    if (!confirm("Are you sure you want to delete this short video?")) return;
+
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`/api/short-videos/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.ok) {
+        setShortVideos(shortVideos.filter((item) => item.id !== id));
+        alert("Short video deleted successfully!");
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error || "Failed to delete short video"}`);
+      }
+    } catch (error) {
+      console.error("Error deleting short video:", error);
+      alert("Error deleting short video. Check console for details.");
     }
   };
 
@@ -854,6 +902,114 @@ export default function AdminDashboard() {
                     </div>
                   )}
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* Short Videos Section */}
+          {activeSection === "short-videos" && (
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-gray-900">
+                  Short Videos Management
+                </h2>
+                <Link href="/admin/short-videos/create">
+                  <button className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Upload Video
+                  </button>
+                </Link>
+              </div>
+
+              {/* Short Videos Table */}
+              <div className="bg-white rounded-lg shadow overflow-hidden">
+                <table className="w-full">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                        ID
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                        Title
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                        Video
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                        Created
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {shortVideos.map((video, index) => (
+                      <tr key={video.id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                          {index + 1}
+                        </td>
+                        <td className="px-6 py-4">
+                          <div>
+                            <div className="text-sm font-medium text-gray-900 line-clamp-2 max-w-xs">
+                              {video.title}
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          {video.video ? (
+                            <video
+                              src={video.video}
+                              className="w-20 h-12 object-cover rounded border"
+                              preload="metadata"
+                            />
+                          ) : (
+                            <span className="text-gray-400 text-sm">No video</span>
+                          )}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {new Date(video.created_at).toLocaleDateString()}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex space-x-2">
+                            <Link href={`/admin/short-videos/edit/${video.id}`}>
+                              <button
+                                className="flex items-center px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-50 transition-colors"
+                                title="Edit Video"
+                              >
+                                <Edit className="w-4 h-4 mr-1" />
+                                Edit
+                              </button>
+                            </Link>
+                            <button
+                              onClick={() => handleDeleteShortVideo(video.id)}
+                              className="flex items-center px-3 py-1 bg-red-600 text-white rounded-md text-sm hover:bg-red-700 transition-colors"
+                              title="Delete Video"
+                            >
+                              <Trash2 className="w-4 h-4 mr-1" />
+                              Delete
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+
+                {shortVideos.length === 0 && (
+                  <div className="text-center py-8">
+                    <p className="text-gray-500">No short videos found.</p>
+                    <Link
+                      href="/admin/short-videos/create"
+                      className="inline-block mt-2"
+                    >
+                      <button className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                        <Plus className="w-4 h-4 mr-2" />
+                        Upload Your First Video
+                      </button>
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           )}
