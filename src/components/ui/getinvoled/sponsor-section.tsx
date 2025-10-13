@@ -13,6 +13,7 @@ import {
   Stethoscope,
   Plus,
   Sparkles,
+  Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -34,7 +35,7 @@ export default function SponsorSection() {
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className=" bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
@@ -43,26 +44,101 @@ export default function SponsorSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-14"
           >
-            <div className="flex justify-center mb-6">
-              <motion.div
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="bg-green-600 p-3 rounded-full"
+            {/* NEW: Two Large Prominent Sponsor Options */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 w-300 h-30  mx-auto">
+              {/* Sponsor Locally Card */}
+              <motion.a
+                href="/sponsor-locally"
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.03, y: -5 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-gradient-to-br from-green-600 to-green-700 rounded-3xl p-6 shadow-2xl hover:shadow-3xl transition-all duration-300 cursor-pointer group border-4 border-green-500"
               >
-                <Heart className="w-10 h-10 text-white" />
-              </motion.div>
+                <div className="flex flex-col items-center text-white text-center space-y-4">
+                  {/* Icon */}
+                  <div className="bg-white bg-opacity-20 p-5 rounded-full group-hover:bg-opacity-30 transition-all duration-300">
+                    <Users className="w-12 h-12" />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-2xl md:text-3xl font-bold">
+                    Sponsor Locally
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-lg opacity-95 leading-relaxed">
+                    Join forces with organizations and create lasting change.
+                    Partner with us to support multiple children and families.
+                  </p>
+
+                  {/* Arrow/CTA */}
+                  <div className="flex items-center gap-2 text-lg font-semibold mt-4 group-hover:gap-4 transition-all duration-300">
+                    <span>Explore Options</span>
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </div>
+                </div>
+              </motion.a>
+
+              {/* Sponsor Partnership Card */}
+              <motion.a
+                href="/sponsor-partnership"
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.03, y: -5 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 cursor-pointer group border-4 border-yellow-400"
+              >
+                <div className="flex flex-col items-center text-white text-center space-y-4">
+                  {/* Icon */}
+                  <div className="bg-white bg-opacity-20 p-5 rounded-full group-hover:bg-opacity-30 transition-all duration-300">
+                    <Users className="w-12 h-12" />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-2xl md:text-3xl font-bold">
+                    Sponsor Partnership
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-lg opacity-95 leading-relaxed">
+                    Join forces with organizations and create lasting change.
+                    Partner with us to support multiple children and families.
+                  </p>
+
+                  {/* Arrow/CTA */}
+                  <div className="flex items-center gap-2 text-lg font-semibold mt-4 group-hover:gap-4 transition-all duration-300">
+                    <span>Explore Options</span>
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </div>
+                </div>
+              </motion.a>
             </div>
 
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              Sponsor a Child Be the Difference
-            </h2>
-            <div className="bg-green-600 text-white rounded-2xl p-6 max-w-2xl mx-auto">
-              <p className="text-xl font-bold">Just $100 USD per month</p>
-              <p className="text-lg">can transform a child&apos;s life completely</p>
-            </div>
-
+          
+          
           </motion.div>
 
           {/* What Sponsorship Provides */}
@@ -91,7 +167,7 @@ export default function SponsorSection() {
           {/* What You Receive */}
           <div className="mb-16">
             <h3 className="text-2xl font-bold text-center text-gray-800 mb-10">
-              What You&apos;ll  Receive as a Sponsor
+              What You&apos;ll Receive as a Sponsor
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {sponsorBenefits.map((benefit, index) => (
@@ -114,48 +190,44 @@ export default function SponsorSection() {
           </div>
 
           {/* Call to Action */}
-      <motion.div
-  initial={{ opacity: 0, y: 30 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8 }}
-  viewport={{ once: true }}
-  className="text-center"
->
-  <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-3xl px-6 py-10 sm:px-10 sm:py-12 text-white max-w-6xl mx-auto flex flex-col items-center gap-6 relative">
-    
-    {/* Question */}
-    <h3 className="text-lg sm:text-xl md:text-2xl font-bold leading-snug max-w-3xl text-center">
-      Will you be part of the next chapter of this story?
-    </h3>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-3xl px-6 py-10 sm:px-10 sm:py-12 text-white max-w-6xl mx-auto flex flex-col items-center gap-6 relative">
+              {/* Question */}
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold leading-snug max-w-3xl text-center">
+                Will you be part of the next chapter of this story?
+              </h3>
 
-    {/* Button (shifted just a little bit to the right for balance) */}
-    <motion.div
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      className="w-full sm:w-auto relative left-0 sm:left-1 md:left-2"
-    >
-   <Button
-  size="lg"
-  className="w-full sm:w-auto bg-white hover:bg-gray-100 text-green-600 font-bold px-4 sm:px-8 py-3 text-sm sm:text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 text-center"
->
-  <Sparkles className="w-5 h-5 shrink-0" />
-  <span className="leading-snug">
-    <span className="block sm:hidden">Sponsor a child today</span>
-    <span className="hidden sm:block">
-      Become a sponsor today and give a child the chance to thrive.
-    </span>
-  </span>
-</Button>
-
-
-    </motion.div>
-
-  </div>
-</motion.div>
-
-
-  </div>
-
+              {/* Button (shifted just a little bit to the right for balance) */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto relative left-0 sm:left-1 md:left-2"
+              >
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto bg-white hover:bg-gray-100 text-green-600 font-bold px-4 sm:px-8 py-3 text-sm sm:text-base rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 text-center"
+                >
+                  <Sparkles className="w-5 h-5 shrink-0" />
+                  <span className="leading-snug">
+                    <span className="block sm:hidden">
+                      Sponsor a child today
+                    </span>
+                    <span className="hidden sm:block">
+                      Become a sponsor today and give a child the chance to
+                      thrive.
+                    </span>
+                  </span>
+                </Button>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
