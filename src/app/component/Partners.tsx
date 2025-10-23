@@ -71,4 +71,8 @@ const partners = [
     name: "Applying specialising experts",
     logo: "/partner6.jpg",
   },
+  {
+    name: "A new thread",
+    logo: "/partner7.jpg",
+  },
 ];

@@ -1,68 +1,94 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-// Static album data
-const albumsData = [
-  {
-    id: 1,
-    title: "Kids Camp 2024",
-    coverImage: "/logoNHCH.png",
-    photoCount: 24,
-    date: "2024-03-15",
-    category: "Events",
-    description: "Annual kids camp activities and fun moments",
-  },
-  {
-    id: 2,
-    title: "Vocational Training",
-    coverImage: "/logoNHCH.png",
-    photoCount: 18,
-    date: "2024-02-10",
-    category: "Programs",
-    description: "Skills development and vocational training sessions",
-  },
-  {
-    id: 3,
-    title: "University Students",
-    coverImage: "/logoNHCH.png",
-    photoCount: 32,
-    date: "2024-01-20",
-    category: "Education",
-    description: "Our sponsored university students and their achievements",
-  },
-  {
-    id: 4,
-    title: "Spiritual Development",
-    coverImage: "/logoNHCH.png",
-    photoCount: 15,
-    date: "2024-03-01",
-    category: "Spiritual",
-    description: "Worship services and spiritual growth activities",
-  },
-  {
-    id: 5,
-    title: "/logoNHCH.png",
-    coverImage: "/logoNHCH.png",
-    photoCount: 22,
-    date: "2024-02-28",
-    category: "Events",
-    description: "Community service and outreach programs",
-  },
-  {
-    id: 6,
-    title: "Daily Life at NHCH",
-    coverImage: "/logoNHCH.png",
-    photoCount: 45,
-    date: "2024-03-10",
-    category: "Lifestyle",
-    description: "Everyday moments and life at New Hope Children's Homes",
-  },
-];
+interface Album {
+  id: number;
+  title: string;
+  description: string | null;
+  category: string | null;
+  createdAt: string;
+  updatedAt: string;
+  photos: {
+    imageUrl: string;
+  }[];
+  _count: {
+    photos: number;
+  };
+}
 
 export default function AlbumPage() {
+  const [albums, setAlbums] = useState<Album[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    fetchAlbums();
+  }, []);
+
+  const fetchAlbums = async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      const response = await fetch("/api/albums");
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch albums");
+      }
+
+      const albumsData = await response.json();
+      setAlbums(albumsData);
+    } catch (err) {
+      console.error("Error fetching albums:", err);
+      setError("Failed to load albums. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleAlbumClick = (albumId: number) => {
+    router.push(`/page/album/${albumId}`);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen py-12 bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#43A047] mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading albums...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen py-12 bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+            <span className="text-2xl">⚠️</span>
+          </div>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">
+            Error Loading Albums
+          </h3>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <button
+            onClick={fetchAlbums}
+            className="px-4 py-2 bg-[#43A047] text-white rounded-lg hover:bg-[#388E3C]"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen py-12 bg-gray-50">
+    <div className="min-h-screen py-12 bg-gray-50 mt-16">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="mb-12 text-center">
@@ -76,58 +102,91 @@ export default function AlbumPage() {
         </div>
 
         {/* Albums Grid */}
-        <div className="grid grid-cols-1 gap-6 mb-12 md:grid-cols-2 lg:grid-cols-3">
-          {albumsData.map((album) => (
-            <div
-              key={album.id}
-              className="overflow-hidden bg-white rounded-lg shadow-md"
-            >
-              {/* Album Cover Image */}
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src={album.coverImage || "/placeholder.jpg"}
-                  alt={album.title}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute px-2 py-1 text-sm text-white bg-black bg-opacity-50 rounded top-2 right-2">
-                  {album.photoCount} photos
+        {albums.length > 0 ? (
+          <div className="grid grid-cols-1 gap-6 mb-12 md:grid-cols-2 lg:grid-cols-3">
+            {albums.map((album) => (
+              <div
+                key={album.id}
+                className="overflow-hidden bg-white rounded-lg shadow-md cursor-pointer transition-transform hover:scale-105 hover:shadow-lg"
+                onClick={() => handleAlbumClick(album.id)}
+              >
+                {/* Album Cover Image */}
+                <div className="relative h-48 overflow-hidden">
+                  {album.photos && album.photos.length > 0 ? (
+                    <Image
+                      src={album.photos[0].imageUrl}
+                      alt={album.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      placeholder="blur"
+                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaUMk9SQHLJwq8qHWUcbPyf/9k="
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                      <Image
+                        src="/logoNHCH.png"
+                        alt="Default album cover"
+                        width={80}
+                        height={80}
+                        className="opacity-50"
+                      />
+                    </div>
+                  )}
+                  <div className="absolute px-2 py-1 text-sm text-white bg-black bg-opacity-50 rounded top-2 right-2">
+                    {album._count?.photos || 0} photos
+                  </div>
                 </div>
-              </div>
 
-              {/* Album Info */}
-              <div className="p-4">
-                <div className="flex items-start justify-between mb-2">
-                  <h3 className="text-lg font-semibold text-gray-800">
-                    {album.title}
-                  </h3>
-                  <span className="px-2 py-1 text-xs text-gray-500 bg-gray-100 rounded">
-                    {album.category}
-                  </span>
-                </div>
-                <p className="mb-2 text-sm text-gray-600">
-                  {album.description}
-                </p>
-                <div className="flex items-center justify-between text-xs text-gray-500">
-                  <span>{new Date(album.date).toLocaleDateString()}</span>
-                  <span className="text-[#43A047]">View Album →</span>
+                {/* Album Info */}
+                <div className="p-4">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-lg font-semibold text-gray-800 line-clamp-1">
+                      {album.title}
+                    </h3>
+                    {album.category && (
+                      <span className="px-2 py-1 text-xs text-gray-500 bg-gray-100 rounded whitespace-nowrap ml-2">
+                        {album.category}
+                      </span>
+                    )}
+                  </div>
+                  {album.description && (
+                    <p className="mb-2 text-sm text-gray-600 line-clamp-2">
+                      {album.description}
+                    </p>
+                  )}
+                  <div className="flex items-center justify-between text-xs text-gray-500">
+                    <span>
+                      {new Date(album.createdAt).toLocaleDateString()}
+                    </span>
+                    <span className="text-[#43A047] font-medium">
+                      View Album →
+                    </span>
+                  </div>
                 </div>
               </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12 bg-white rounded-lg shadow">
+            <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+              <Image
+                src="/logoNHCH.png"
+                alt="No albums"
+                width={32}
+                height={32}
+                className="opacity-50"
+              />
             </div>
-          ))}
-        </div>
-
-        {/* Call to Action Section */}
-        <div className="bg-[#43A047] text-white rounded-lg p-8 text-center">
-          <h2 className="mb-4 text-2xl font-bold">Share Your Memories</h2>
-          <p className="max-w-2xl mx-auto mb-6">
-            Do you have photos from our events? Help us grow our gallery by
-            sharing your pictures.
-          </p>
-          <button className="bg-white text-[#43A047] px-6 py-3 rounded-lg font-semibold">
-            Submit Photos
-          </button>
-        </div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">
+              No Albums Yet
+            </h3>
+            <p className="text-gray-500">
+              Check back later for photo albums from New Hope Children&#39;s
+              Homes.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

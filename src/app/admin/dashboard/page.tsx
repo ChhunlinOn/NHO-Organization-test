@@ -16,8 +16,9 @@ import {
   MailPlus,
   Copy,
   Video,
+  Image as ImageIcon,
 } from "lucide-react";
-
+import Image from "next/image";
 interface News {
   id: number;
   image: string;
@@ -67,7 +68,38 @@ interface ShortVideo {
   updated_at: string;
 }
 
-type ActiveSection = "news" | "users" | "our-family" | "mail-subscribe" | "short-videos";
+interface Album {
+  id: number;
+  title: string;
+  description: string | null;
+  category: string | null;
+  coverImage: string | null;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: number;
+  photos: Photo[];
+  _count: {
+    photos: number;
+  };
+}
+
+interface Photo {
+  id: number;
+  imageUrl: string;
+  publicId: string;
+  description: string | null;
+  createdAt: string;
+  albumId: number;
+  uploadedBy: number;
+}
+
+type ActiveSection =
+  | "news"
+  | "users"
+  | "our-family"
+  | "mail-subscribe"
+  | "short-videos"
+  | "albums";
 
 export default function AdminDashboard() {
   const [news, setNews] = useState<News[]>([]);
@@ -75,6 +107,7 @@ export default function AdminDashboard() {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [subscribers, setSubscribers] = useState<NewsletterSubscriber[]>([]);
   const [shortVideos, setShortVideos] = useState<ShortVideo[]>([]);
+  const [albums, setAlbums] = useState<Album[]>([]);
   const [activeSection, setActiveSection] = useState<ActiveSection>("news");
   const [isLoading, setIsLoading] = useState(true);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -112,6 +145,12 @@ export default function AdminDashboard() {
       id: "short-videos" as ActiveSection,
       name: "Short Videos",
       icon: Video,
+      allowedRoles: ["admin", "editor"],
+    },
+    {
+      id: "albums" as ActiveSection,
+      name: "Albums",
+      icon: ImageIcon,
       allowedRoles: ["admin", "editor"],
     },
   ];
@@ -190,6 +229,18 @@ export default function AdminDashboard() {
           setUsers(usersData || []);
         }
       }
+
+      // FIXED: Fetch albums - remove .albums since API returns array directly
+      const albumsResponse = await fetch("/api/albums", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (albumsResponse.ok) {
+        const albumsData = await albumsResponse.json();
+        console.log("Albums API response:", albumsData); // Debug log
+        setAlbums(albumsData || []); // FIXED: Use albumsData directly, not albumsData.albums
+      } else {
+        console.error("Failed to fetch albums:", albumsResponse.status);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -220,6 +271,10 @@ export default function AdminDashboard() {
       fetchData();
     }
   }, [checkAuth, fetchData]);
+
+  useEffect(() => {
+    console.log("Albums state updated:", albums); // Debug log
+  }, [albums]);
 
   useEffect(() => {
     if (activeSection === "mail-subscribe" && checkAuth()) {
@@ -348,6 +403,34 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleDeleteAlbum = async (id: number) => {
+    if (
+      !confirm(
+        "Are you sure you want to delete this album? All photos in this album will also be deleted."
+      )
+    )
+      return;
+
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`/api/albums/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.ok) {
+        setAlbums(albums.filter((item) => item.id !== id));
+        alert("Album deleted successfully!");
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error || "Failed to delete album"}`);
+      }
+    } catch (error) {
+      console.error("Error deleting album:", error);
+      alert("Error deleting album. Check console for details.");
+    }
+  };
+
   const copyAllEmails = () => {
     const emails = subscribers.map((s) => s.email).join(", ");
     navigator.clipboard
@@ -404,20 +487,23 @@ export default function AdminDashboard() {
 
         <nav className="p-4">
           <div className="space-y-2">
-            {filteredNavigation.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => setActiveSection(item.id)}
-                className={`w-full flex items-center px-4 py-3 text-left rounded-lg transition-colors ${
-                  activeSection === item.id
-                    ? "bg-green-100 text-green-700 border-l-4 border-green-500"
-                    : "text-gray-600 hover:bg-gray-100"
-                }`}
-              >
-                <item.icon className="w-5 h-5 mr-3" />
-                <span className="font-medium">{item.name}</span>
-              </button>
-            ))}
+            {filteredNavigation.map((item) => {
+              const Icon = item.icon;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveSection(item.id)}
+                  className={`w-full flex items-center px-4 py-3 text-left rounded-lg transition-colors ${
+                    activeSection === item.id
+                      ? "bg-green-100 text-green-700 border-l-4 border-green-500"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
+                >
+                  <Icon className="w-5 h-5 mr-3" />
+                  <span className="font-medium">{item.name}</span>
+                </button>
+              );
+            })}
           </div>
         </nav>
 
@@ -964,7 +1050,9 @@ export default function AdminDashboard() {
                               preload="metadata"
                             />
                           ) : (
-                            <span className="text-gray-400 text-sm">No video</span>
+                            <span className="text-gray-400 text-sm">
+                              No video
+                            </span>
                           )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -1011,6 +1099,149 @@ export default function AdminDashboard() {
                   </div>
                 )}
               </div>
+            </div>
+          )}
+
+          {/* // Albums Management Section */}
+          {activeSection === "albums" && (
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-gray-900">
+                  Albums Management ({albums.length})
+                </h2>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => fetchData()}
+                    className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    Refresh
+                  </button>
+                  <Link href="/admin/albums/create">
+                    <button className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                      <Plus className="w-4 h-4 mr-2" />
+                      Create Album
+                    </button>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Albums Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {albums.map((album) => (
+                  <div
+                    key={album.id}
+                    className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                  >
+                    {/* Album Cover */}
+                    <div className="aspect-video bg-gray-200 relative">
+                      {album.photos && album.photos.length > 0 ? (
+                        <div className="w-full h-full relative">
+                          <Image
+                            src={album.photos[0].imageUrl}
+                            alt={album.title}
+                            className="w-full h-full object-cover"
+                            width={400}
+                            height={300}
+                            priority={false}
+                            placeholder="blur"
+                            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaUMk9SQHLJwq8qHWUcbPyf/9k="
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                          <Image
+                            className="w-8 h-8 text-gray-400"
+                            width={32}
+                            height={32}
+                            alt="No photos"
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239CA3AF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'%3E%3C/path%3E%3C/svg%3E"
+                          />
+                        </div>
+                      )}
+                      <div className="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs">
+                        {album._count?.photos || 0} photos
+                      </div>
+                    </div>
+
+                    {/* Album Info */}
+                    <div className="p-4">
+                      <h3 className="font-semibold text-lg mb-2 line-clamp-1">
+                        {album.title}
+                      </h3>
+                      {album.description && (
+                        <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                          {album.description}
+                        </p>
+                      )}
+                      {album.category && (
+                        <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full mb-3">
+                          {album.category}
+                        </span>
+                      )}
+                      <div className="flex justify-between items-center text-xs text-gray-500">
+                        <span>
+                          Created:{" "}
+                          {new Date(album.createdAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="px-4 pb-4 flex space-x-2">
+                      <Link
+                        href={`/admin/albums/edit/${album.id}`}
+                        className="flex-1"
+                      >
+                        <button className="w-full flex items-center justify-center px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50 transition-colors">
+                          <Edit className="w-4 h-4 mr-1" />
+                          Edit
+                        </button>
+                      </Link>
+                      <Link
+                        href={`/admin/albums/${album.id}/photos`}
+                        className="flex-1"
+                      >
+                        <button className="w-full flex items-center justify-center px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50 transition-colors">
+                          <Plus className="w-4 h-4 mr-1" />
+                          Photos
+                        </button>
+                      </Link>
+                      <button
+                        onClick={() => handleDeleteAlbum(album.id)}
+                        className="flex items-center justify-center px-3 py-2 bg-red-600 text-white rounded-md text-sm hover:bg-red-700 transition-colors"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {albums.length === 0 && (
+                <div className="text-center py-12 bg-white rounded-lg shadow">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                    <Image
+                      className="w-8 h-8 text-gray-400"
+                      width={32}
+                      height={32}
+                      alt="No albums"
+                      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239CA3AF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'%3E%3C/path%3E%3C/svg%3E"
+                    />
+                  </div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    No albums yet
+                  </h3>
+                  <p className="text-gray-500 mb-6">
+                    Create your first album to start organizing photos.
+                  </p>
+                  <Link href="/admin/create">
+                    <button className="flex items-center px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors mx-auto">
+                      <Plus className="w-5 h-5 mr-2" />
+                      Create Your First Album
+                    </button>
+                  </Link>
+                </div>
+              )}
             </div>
           )}
         </main>
